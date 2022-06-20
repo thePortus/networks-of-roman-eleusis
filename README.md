@@ -75,7 +75,7 @@ This project also explores a new possibility for understanding long-term trends 
 
 #### Install NodeJS
 
-Linux (Debian)
+###### Linux (Debian)
 ```sh
 # update package manager
 sudo apt-get update
@@ -83,7 +83,7 @@ sudo apt-get update
 sudo apt-get install nodejs npm
 ```
 
-OSX
+###### OSX
 ```sh
 # install homebrew package manager if not already installed
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -95,7 +95,7 @@ brew install node
 
 #### Install & Configure MySQL
 
-Installing - Linux (Debian)
+###### Installing - Linux (Debian)
 ```sh
 # update package manager
 sudo apt-get update
@@ -103,7 +103,7 @@ sudo apt-get update
 sudo apt-get install mysql-server
 ```
 
-Installing - OSX
+###### Installing - OSX
 ```sh
 # update package manager
 brew update
@@ -111,11 +111,13 @@ brew update
 brew install mysql
 ```
 
-Setup - Both Linux & OSX
+###### Setup - Linux & OSX
 ```sh
 # launch mysql as root user
 mysql -u root
 ```
+
+Once the mysql prompt starts enter...
 
 ```sql
 -- replace eleusisuser and password with whatever you want
@@ -126,7 +128,7 @@ GRANT PRIVILEGE ON *.* TO 'eleusisuser'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-#### Install Angular & Sequelize CLIs
+#### Install Angular & Sequelize CLIs Globally
 
 ```sh
 npm install -g @angular/cli
@@ -136,8 +138,8 @@ npm install -g sequelize-sli
 #### Clone and Install Repository
 
 ```sh
-git clone https://github.com/thePortus/networks-of-roman-eleusis/
-cd eleusis-api
+git clone https://github.com/thePortus/networks-of-roman-eleusis.git
+cd networks-of-roman-eleusis
 npm install
 ```
 
