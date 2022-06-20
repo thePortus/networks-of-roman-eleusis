@@ -1,0 +1,39 @@
+<mat-card *ngIf="loading == false">
+  <mat-toolbar class="mat-elevation-z8">
+    <span fxFlex>{{ label }}</span>
+    <button mat-raised-button (click)="goToEdit()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="accent" aria-label="Edit item">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-raised-button (click)="deleteItem()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="warn" aria-label="Edit item">
+        <mat-icon>delete_forever</mat-icon>
+    </button>
+    <button (click)="toggleShowing()" mat-raised-button color="primary" aria-label="Toggle show table">
+        <mat-icon *ngIf="!isShowing">keyboard_arrow_up</mat-icon>
+        <mat-icon *ngIf="isShowing">keyboard_arrow_down</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-card-content *ngIf="isShowing" class="padded-content" fxLayout="column">
+    <table class="mat-elevation-z8">
+        <thead>
+          <tr>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let field of fields">
+            <td class="padded-content">{{ field.label }}:</td>
+            <td style="width:100%" class="padded-content">
+              <span *ngIf="field.type=='text'">{{ protectedData[field.name] }}</span>
+              <span *ngIf="field.type=='check'"><mat-icon class="green-check" *ngIf="protectedData[field.name] == true" >check_circle_outline</mat-icon></span>
+              <pre *ngIf="field.type=='code'">{{ protectedData[field.name] }}</pre>
+              <span *ngIf="field.type=='list'">
+                <span *ngFor="let listItem of protectedData[field.name]; let last = last;">
+                  {{ listItem[field.fieldName] }}<span *ngIf="!last">, </span>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,64 @@
+<div class="add-wrapper" fxLayout="column" fxLayoutAlign="start center">
+  <form class="add-container" #myform="ngForm" (ngSubmit)="onSubmit(myform)" *ngIf="user.role == 'Owner' || user.role == 'Editor'">
+    <mat-card>
+      <mat-card-title>Add New Inscription</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+        <mat-form-field appearance="fill">
+          <mat-label>ID</mat-label>
+          <input matInput type="number" name="id" placeholder="Enter ID (optional)" ngModel>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>IE</mat-label>
+          <input matInput type="text" name="ie" placeholder="Enter IE" ngModel required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput type="text" name="title" placeholder="Enter Title" ngModel required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Object Type</mat-label>
+          <mat-select [(value)]="selectedObjectType">
+            <mat-option *ngFor="let objectType of acceptableObjectTypes" [value]="objectType">{{ objectType }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Inscription Type</mat-label>
+          <mat-select [(value)]="selectedInscriptionType">
+            <mat-option *ngFor="let inscriptionType of acceptableInscriptionTypes" [value]="inscriptionType">{{ inscriptionType }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Location</mat-label>
+          <input matInput type="text" name="location" placeholder="Enter Location" ngModel>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Low Date</mat-label>
+          <input matInput type="number" name="lowDate" placeholder="Enter Low Date" ngModel required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>High Date</mat-label>
+          <input matInput type="number" name="highDate" placeholder="Enter High Date" ngModel required>
+        </mat-form-field>
+        <mat-checkbox class="checkbox-option" color="primary" [(ngModel)]="isLowDateUncertain">
+          Low Date Uncertain
+        </mat-checkbox>
+        <mat-checkbox class="checkbox-option" color="primary" [(ngModel)]="isHighDateUncertain">
+          High Date Uncertain
+        </mat-checkbox>
+        <mat-form-field appearance="fill">
+          <mat-label>Textarea</mat-label>
+          <textarea matInput [(ngModel)]="inscriptionText" required></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+        <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+          <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
+        </div>
+        <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+          <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
+        </div>
+        <button mat-raised-button type="submit" color="primary" aria-label="Add inscription button">Add Inscription</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

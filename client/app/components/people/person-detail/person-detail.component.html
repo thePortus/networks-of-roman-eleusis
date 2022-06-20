@@ -1,0 +1,15 @@
+<div class="detail-wrapper" fxLayout="row" fxLayout.lt-md="column">
+  <button mat-raised-button (click)="navigate('')" color="primary" aria-label="Back to inscriptions">
+    <mat-icon fxHide.lt-md>keyboard_arrow_left</mat-icon>
+    <mat-icon fxHide.gt-sm>keyboard_arrow_up</mat-icon>
+  </button>
+  <div *ngIf="loading == false" fxFlex>
+    <app-item-info table="people" label="Person Details" [fields]="detailFields.main" [data]="protectedData"></app-item-info>
+    <app-related-table *ngIf="protectedData.inscriptions.length > 0" table="inscriptions" label="Inscriptions Appearing in" [fields]="detailFields.inscriptions" [data]="protectedData.inscriptions"></app-related-table>
+    <app-related-table *ngIf="protectedData.honors.length > 0" table="honors" label="Honors Held" [fields]="detailFields.honors" [data]="protectedData.honors"></app-related-table>
+    <app-related-table *ngIf="protectedData.institutions.length > 0" table="institutions" label="Institutions Belonged to" [fields]="detailFields.institutions" [data]="protectedData.institutions"></app-related-table>
+  </div>
+  <div *ngIf="loading == false" fxFlex>
+      <app-network-graph label="Visual Browser" [data]="protectedNetwork"></app-network-graph>
+  </div>
+</div>

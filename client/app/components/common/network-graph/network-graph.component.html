@@ -1,0 +1,18 @@
+<mat-card class="vis-network-wrapper">
+  <mat-toolbar *ngIf="label != ''" class="mat-elevation-z4">
+    <span fxFlex>{{ label }}</span>
+  </mat-toolbar>
+  <mat-card-content>
+    <div>
+      <div id="vis-network" class="vis-network"></div>
+    </div>
+    <div id="vis-loading-bar">
+        <div class="vis-outer-border">
+            <div id="vis-text">0%</div>
+            <div id="vis-inner-border">
+                <div id="vis-bar"></div>
+            </div>
+        </div>
+    </div>
+  </mat-card-content>
+</mat-card>

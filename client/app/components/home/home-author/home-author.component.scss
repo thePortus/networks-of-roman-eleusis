@@ -1,0 +1,18 @@
+:host .codequote {
+  background-color: #D0E4EC;
+  color: #222222;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #000C11;
+  border-style: solid;
+}
+
+:host .codequote a:link, .codequote a:active, .codequote a:visited {
+  color: #823a14;
+}
+
+:host .codequote a:hover {
+  color: #f16412;
+}

@@ -1,0 +1,40 @@
+<div class="auth-wrapper" fxLayout="column" fxLayoutAlign="center center">
+  <form #myform="ngForm" (ngSubmit)="onSubmit(myform)" *ngIf="!this.user.loggedIn">
+    <mat-card class="auth-container">
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" name="username" placeholder="Enter Username" ngModel>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" placeholder="Enter Password" ngModel>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+        <button mat-raised-button type="submit" color="primary" aria-label="Login Button">Login</button>
+      </mat-card-actions>
+    </mat-card>
+    <div class="policy-links" fxLayout="column" fxLayoutAlign="center center">
+        <span><small><a routerLink='/privacy-policy'>View Privacy Policy</a></small></span>
+    </div>
+  </form>
+  <mat-card class="auth-container" *ngIf="this.user.loggedIn">
+    <mat-card-content ngFlex>
+      <h1>You are logged in</h1>
+      <div class="policy-links" fxLayout="column" fxLayoutAlign="center center">
+        <div class="policy-links" fxLayout="column" fxLayoutAlign="center center">
+            <span><small><a routerLink='/privacy-policy'>View Privacy Policy</a></small></span>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+      <button mat-raised-button type="submit" color="primary" (click)="logout()" aria-label="Logout Button">Logout</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

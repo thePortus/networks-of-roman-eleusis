@@ -1,0 +1,96 @@
+// include angular material styles
+@use '@angular/material' as mat;
+@include mat.core();
+
+// import google material icons
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+// import project styles settings
+@import "styles-settings";
+
+/* setting app container */
+html, body { height: 100%; }
+body { margin: 0; }
+
+/* start of Angular Material color and font theming */
+$body-typography: 'Lato';
+$title-typography: mat.define-typography-level(32px, 32px, 400, 'Julius Sans One');
+$headline-typography: mat.define-typography-level(26px, 26px, 400, 'Julius Sans One');
+
+$my-primary: mat.define-palette($mat-eleusis-primary, 500);
+$my-accent: mat.define-palette($mat-eleusis-accent, A200, A100, A400);
+$my-typography: mat.define-typography-config(
+    $font-family: $body-typography,
+    $title: $title-typography,
+    $headline: $headline-typography,
+    $subheading-2: $headline-typography,
+    $subheading-1: $headline-typography
+);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+ ),
+ typography: $my-typography
+));
+
+@include mat.all-component-themes($my-theme);
+/* end of Angular Material color and font theming */
+
+/* site-wide styles */
+.dataTables_wrapper {
+  font-family: Lato;
+}
+
+.green-check {
+  color: #18d10f;
+}
+
+.red-warn {
+  color: #DD0000;
+}
+
+mat-card {
+  margin: 20px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.border {
+  margin: 0px;
+  padding: 0px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+}
+
+.border-img {
+  margin: 15px;
+}
+
+.padded-content {
+  padding: 10px;
+}
+
+.side-margins {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.has-dropcap:first-letter {
+  font-size: 6rem;
+  line-height: 0.65;
+  margin: 0.1em 0.1em 0.2em 0;
+  float: left;
+}

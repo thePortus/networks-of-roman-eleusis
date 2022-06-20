@@ -1,0 +1,9 @@
+<mat-card>
+  <mat-card-title>Project Bibliography</mat-card-title>
+  <mat-card-subtitle><i>Historical and Theoretical</i></mat-card-subtitle>
+  <mat-card-content fxLayout="column">
+      <div *ngFor="let biblioEntry of bibliography">
+        <span class="biblio-entry">• {{ biblioEntry }}</span>
+      </div>
+  </mat-card-content>
+</mat-card>

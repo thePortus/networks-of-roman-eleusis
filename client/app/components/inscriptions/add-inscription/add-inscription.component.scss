@@ -1,0 +1,19 @@
+:host .add-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+:host .add-container {
+  width: 800px;
+}
+
+:host .checkbox-option {
+  padding-left: 15px;
+}
+
+:host .error-msgs {
+  background-color: #EEEEEE;
+  color: #DD0000;
+  margin: 5px;
+  padding: 5px;
+}

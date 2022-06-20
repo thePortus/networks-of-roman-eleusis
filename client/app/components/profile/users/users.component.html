@@ -1,0 +1,22 @@
+<div *ngIf="loading == false">
+  <table datatable [dtOptions]="dtOptions" class="display compact nowrap mat-elevation-z4">
+    <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Edit User</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of protectedData">
+        <td>{{ row.username }}</td>
+        <td>{{ row.email }}</td>
+        <td>{{ row.role }}</td>
+        <td>
+          <button *ngIf="row.role == 'User'" mat-raised-button color="primary" (click)="openDialog(row.username, 'Editor')" aria-label="Promote user to editor">Promote to Editor</button>
+          <button *ngIf="row.role == 'Editor'" mat-raised-button color="primary" (click)="openDialog(row.username, 'User')" aria-label="Demote editor to user">Demote to User</button>
+        </td>
+      </tr>
+    </tbody></table>
+</div>

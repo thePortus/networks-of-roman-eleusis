@@ -1,0 +1,12 @@
+:host table {
+  border-collapse: collapse;
+}
+
+:host tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+:host mat-toolbar button {
+  margin-left: 5px;
+  margin-right: 5px;
+}

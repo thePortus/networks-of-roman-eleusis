@@ -1,0 +1,23 @@
+<div *ngIf="this.loading == false" class="profile-wrapper" fxLayout="column" fxLayoutAlign="start center">
+    <mat-card class="profile-container" fxLayout="column" fxLayoutAlign="center center">
+      <mat-card-title>Profile</mat-card-title>
+      <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+        <table>
+            <tbody>
+                <tr><td>Username: </td><td>{{ this.protectedData.username }}</td></tr>
+                <tr><td>Email: </td><td>{{ this.protectedData.email }}</td></tr>
+                <tr><td>Role: </td><td>{{ this.protectedData.role }}</td></tr>
+            </tbody>
+        </table>
+      </mat-card-content>
+      <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+        <button mat-raised-button type="submit" color="primary" (click)="logout()">Logout</button>
+      </mat-card-actions>
+      <div class="policy-links" fxLayout="column" fxLayoutAlign="center center">
+          <span><small><a routerLink='/privacy-policy'>View Privacy Policy</a></small></span>
+      </div>
+    </mat-card>
+    <div *ngIf="this.protectedData.role == 'Owner'">
+        <app-users></app-users>
+    </div>
+</div>

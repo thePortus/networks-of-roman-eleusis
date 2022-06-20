@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "eleusisuser",
+    "password": "password",
+    "database": "roman_eleusis",
+    "port": 3306,
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "eleusisuser",
+    "password": "password",
+    "database": "roman_eleusis",
+    "port": 3306,
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "eleusisuser",
+    "password": "password",
+    "database": "roman_eleusis",
+    "port": 3306,
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
