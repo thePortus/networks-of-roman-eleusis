@@ -93,7 +93,7 @@ exports.delete = (req, res) => {
   PersonWithHonor.destroy({
     where: {
       personId: requestObj.personId,
-      HonorId: requestObj.honorId,
+      honorId: requestObj.honorId,
       inscriptionId: requestObj.inscriptionId,
     }
   })

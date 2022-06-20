@@ -26,7 +26,7 @@ import { AddPersonComponent } from './components/people/add-person/add-person.co
 import { EditInscriptionComponent } from './components/inscriptions/edit-inscription/edit-inscription.component';
 import { EditHonorComponent } from './components/honors/edit-honor/edit-honor.component';
 import { EditInstitutionComponent } from './components/institutions/edit-institution/edit-institution.component';
-
+import { EditPersonComponent } from './components/people/edit-person/edit-person.component';
 
 import { PrivacyPolicyComponent } from './components/common/privacy-policy/privacy-policy.component';
 
@@ -41,6 +41,7 @@ const routes: Routes = [
   { path: 'inscriptions/:id', component: InscriptionDetailComponent },
   { path: 'people', component: PeopleComponent },
   { path: 'people/add', canActivate: [AuthGuardService], component: AddPersonComponent },
+  { path: 'people/edit/:id', canActivate: [AuthGuardService], component: EditPersonComponent },
   { path: 'people/:id', component: PersonDetailComponent },
   { path: 'institutions', component: InstitutionsComponent },
   { path: 'institutions/add', canActivate: [AuthGuardService], component: AddInstitutionComponent },

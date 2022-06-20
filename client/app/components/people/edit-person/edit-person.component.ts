@@ -6,35 +6,30 @@ import { ApiService } from './../../../services/api.service';
 import { User, UserService } from './../../../services/user.service';
 
 @Component({
-  selector: 'app-edit-institution',
-  templateUrl: './edit-institution.component.html',
-  styleUrls: ['./edit-institution.component.scss']
+  selector: 'app-edit-person',
+  templateUrl: './edit-person.component.html',
+  styleUrls: ['./edit-person.component.scss']
 })
-export class EditInstitutionComponent implements OnInit {
+export class EditPersonComponent implements OnInit {
   loading: boolean = true;
   itemId: any;
   errorMsgs = [];
   serverErrorMsgs = [];
-  acceptableOrigins = ['Athens', 'Corinth', 'Eleusis', 'Ephesus', 'Other', 'Rome', 'Samos'];
-  acceptableCategories = ['Athenian', 'Eleusinian', 'Greek', 'Other', 'Panhellenic', 'Roman'];
-  acceptableTypes = ['Genos', 'Private Group', 'Public'];
+  acceptableOrigins = ['Athens', 'Boiotia', 'Cappadocia', 'Ephesus', 'Epidaurus', 'Macedon', 'Nicomedia', 'Rome', 'Syria', 'Uncertain'];
+  acceptableCategories = ['Athenian', 'Imperial Family Member', 'Other Greek', 'Roman', 'Uncertain'];
+  acceptableGenders = ['Male', 'Female', 'Uncertain'];
   userDetails$: Observable<User>;
   user: any;
   protectedData: any;
   protectedRelated = {
-    inscriptions: [],
-    honors: []
+    inscriptions: []
   };
   isShowing = {
-    inscriptions: false,
-    honors: false
+    inscriptions: false
   };
   newInscription = {
     id: null,
     role: 'Sponsor'
-  };
-  newHonor = {
-    id: null
   };
 
   constructor(
@@ -56,14 +51,11 @@ export class EditInstitutionComponent implements OnInit {
     this.userDetails$.subscribe(result => {
       this.user = result;
     });
-    this._api.getTypeRequest('institutions/' + this.itemId).subscribe((res: any) => {
+    this._api.getTypeRequest('people/' + this.itemId).subscribe((res: any) => {
       this.protectedData = res;
       this._api.getTypeRequest('inscriptions').subscribe((inscriptionsRes: any) => {
         this.protectedRelated.inscriptions = inscriptionsRes;
-        this._api.getTypeRequest('honors').subscribe((honorsRes: any) => {
-          this.protectedRelated.honors = honorsRes;
-          this.loading = false;
-        });
+        this.loading = false;
       });
     });
   }
@@ -91,7 +83,7 @@ export class EditInstitutionComponent implements OnInit {
     delete reqData.inscriptions;
     delete reqData.honors;
     if (this._validate(reqData)) {
-      this._api.putTypeRequest('institutions/' + this.itemId.toString(), reqData).subscribe((res: any) => {
+      this._api.putTypeRequest('people/' + this.itemId.toString(), reqData).subscribe((res: any) => {
         if (res.status !== 0) {
           this.gotoDetailsPage();
         }
@@ -103,7 +95,7 @@ export class EditInstitutionComponent implements OnInit {
   }
 
   gotoDetailsPage() {
-    this._router.navigate(['/institutions/' + this.itemId.toString()]);
+    this._router.navigate(['/people/' + this.itemId.toString()]);
   }
 
   toggleShowing(field:string) {
@@ -134,10 +126,6 @@ export class EditInstitutionComponent implements OnInit {
     this.newInscription = { id: idNum , role: 'Sponsor' };
   }
 
-  selectHonor(idNum:number) {
-    this.newHonor = { id: idNum };
-  }
-
   addNewInscription() {
     if (this.newInscription.id == null) {
       this.errorMsgs.push('no inscription selected to add!');
@@ -145,51 +133,22 @@ export class EditInstitutionComponent implements OnInit {
     }
     for (let inscription of this.protectedData.inscriptions) {
       if (this.newInscription.id == inscription.id) {
-        this.errorMsgs.push('institution is already in this inscription!');
+        this.errorMsgs.push('person is already in the inscription!');
         return;
       }
     }
     if (confirm('Are you sure you want to add inscription ' + this.newInscription.id + '?')) {
       const reqObject = {
         authorizingId: this.user.username,
-        institutionId: this.itemId,
+        personId: this.itemId,
         inscriptionId: this.newInscription.id,
       };
-      this._api.postTypeRequest('institution_inscriptions', reqObject).subscribe((res: any) => {
+      this._api.postTypeRequest('people_in_inscriptions', reqObject).subscribe((res: any) => {
         if (res.status !== 0) {
           this.newInscription = {
             id: null,
             role: 'Sponsor'
           };
-          this.load();
-        }
-        else {
-          this.serverErrorMsgs = res.messages;
-        }
-      });
-    }
-  }
-
-  addNewHonor() {
-    if (this.newHonor.id == null) {
-      this.errorMsgs.push('no honor selected to add!');
-      return;
-    }
-    for (let honor of this.protectedData.honors) {
-      if (this.newHonor.id == honor.id) {
-        this.errorMsgs.push('honor is already associated with this institution!');
-        return;
-      }
-    }
-    if (confirm('Are you sure you want to add honor ' + this.newInscription.id + '?')) {
-      const reqObject = {
-        authorizingId: this.user.username,
-        institutionId: this.itemId,
-        honorId: this.newHonor.id,
-      };
-      this._api.postTypeRequest('institution_honors', reqObject).subscribe((res: any) => {
-        if (res.status !== 0) {
-          this.newHonor = { id: null };
           this.load();
         }
         else {

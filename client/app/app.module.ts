@@ -68,6 +68,7 @@ import { EditInscriptionComponent } from './components/inscriptions/edit-inscrip
 import { ExportComponent } from './components/export/export.component';
 import { EditHonorComponent } from './components/honors/edit-honor/edit-honor.component';
 import { EditInstitutionComponent } from './components/institutions/edit-institution/edit-institution.component';
+import { EditPersonComponent } from './components/people/edit-person/edit-person.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { EditInstitutionComponent } from './components/institutions/edit-institu
     EditInscriptionComponent,
     ExportComponent,
     EditHonorComponent,
-    EditInstitutionComponent
+    EditInstitutionComponent,
+    EditPersonComponent
   ],
   imports: [
     BrowserModule,

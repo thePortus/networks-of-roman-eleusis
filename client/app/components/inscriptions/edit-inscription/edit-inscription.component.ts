@@ -150,7 +150,7 @@ export class EditInscriptionComponent implements OnInit {
     if (reqData.dateSpan) {
       delete this.protectedData.dateSpan;
     }
-    if (this._validate(this.protectedData)) {
+    if (this._validate(reqData)) {
       this._api.putTypeRequest('inscriptions/' + this.itemId.toString(), reqData).subscribe((res: any) => {
         if (res.status !== 0) {
           this.gotoDetailsPage();

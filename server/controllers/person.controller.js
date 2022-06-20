@@ -109,6 +109,13 @@ exports.findOne = (req, res) => {
           'id', 'ie', 'title', 'objectType', 'inscriptionType', 'location',
           'lowDate', 'highDate', 'date', 'dateSpan', 'lowDateUncertain',
           'highDateUncertain', 'text'
+        ],
+        include: [
+          {
+            model: Honor,
+            as: 'honors',
+            attributes: ['id', 'title', 'category', 'origin', 'type']
+          }
         ]
       }, {
         model: Honor,
@@ -119,6 +126,15 @@ exports.findOne = (req, res) => {
             model: Institution,
             as: 'institutions',
             attributes: ['id', 'title', 'origin', 'category', 'type']
+          },
+          {
+            model: Inscription,
+            as: 'inscriptions',
+            attributes: [
+              'id', 'ie', 'title', 'objectType', 'inscriptionType', 'location',
+              'lowDate', 'highDate', 'date', 'dateSpan', 'lowDateUncertain',
+              'highDateUncertain', 'text'
+            ]
           }
         ]
       }

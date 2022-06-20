@@ -162,6 +162,8 @@ npm start
 
 Open your browser to http://localhost:8080 to begin using the application.
 
+The first account to register automatically becomes the owner and is responsible for promoting any other users to editors to make changes. To make sure to register immediatedly (the register button is in the navigation menu at top-left).
+
 ---
 
 ## Customization

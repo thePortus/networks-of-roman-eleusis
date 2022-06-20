@@ -101,7 +101,7 @@ export class EditHonorComponent implements OnInit {
     delete reqData.inscriptions;
     delete reqData.institutions;
     delete reqData.people;
-    if (this._validate(this.protectedData)) {
+    if (this._validate(reqData)) {
       this._api.putTypeRequest('honors/' + this.itemId.toString(), reqData).subscribe((res: any) => {
         if (res.status !== 0) {
           this.gotoDetailsPage();
