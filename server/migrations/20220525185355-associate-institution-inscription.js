@@ -15,13 +15,13 @@ module.exports = {
           type: Sequelize.INTEGER,
           references: { model: 'Institutions', key: 'id' },
           primaryKey: true,
-          onDelete: 'CASCADE'
+          onDelete: 'NO ACTION'
         },
         inscriptionId: {
           type: Sequelize.INTEGER,
           references: { model: 'Inscriptions', key: 'id' },
           primaryKey: true,
-          onDelete: 'CASCADE'
+          onDelete: 'NO ACTION'
         },
         role: {
           type: Sequelize.STRING

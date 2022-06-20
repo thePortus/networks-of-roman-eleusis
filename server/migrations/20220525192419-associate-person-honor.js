@@ -15,19 +15,19 @@ module.exports = {
           type: Sequelize.INTEGER,
           references: { model: 'People', key: 'id' },
           primaryKey: true,
-          onDelete: 'CASCADE'
+          onDelete: 'NO ACTION'
         },
         honorId: {
           type: Sequelize.INTEGER,
           references: { model: 'Honors', key: 'id' },
           primaryKey: true,
-          onDelete: 'CASCADE'
+          onDelete: 'NO ACTION'
         },
         inscriptionId: {
           type: Sequelize.INTEGER,
           references: { model: 'Inscriptions', key: 'id' },
           primaryKey: true,
-          onDelete: 'CASCADE'
+          onDelete: 'NO ACTION'
         },
         appearances: {
           type: Sequelize.INTEGER

@@ -66,6 +66,7 @@ import { AddPersonComponent } from './components/people/add-person/add-person.co
 import { ConfirmAddPersonDialog } from './components/people/add-person/add-person.component';
 import { EditInscriptionComponent } from './components/inscriptions/edit-inscription/edit-inscription.component';
 import { ExportComponent } from './components/export/export.component';
+import { EditHonorComponent } from './components/honors/edit-honor/edit-honor.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { ExportComponent } from './components/export/export.component';
     AddPersonComponent,
     ConfirmAddPersonDialog,
     EditInscriptionComponent,
-    ExportComponent
+    ExportComponent,
+    EditHonorComponent
   ],
   imports: [
     BrowserModule,

@@ -61,10 +61,11 @@
       </mat-card-actions>
     </mat-card>
     <!-- Features -->
-    <mat-toolbar *ngIf="!isShowing.features">
+    <mat-toolbar>
       <span fxFlex>Edit Features</span>
       <button mat-raised-button (click)="toggleShowing('features')" color="primary">
-          <mat-icon>keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="!isShowing.features">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="isShowing.features">keyboard_arrow_down</mat-icon>
       </button>
     </mat-toolbar>
     <mat-card *ngIf="isShowing.features">
@@ -79,7 +80,6 @@
           </mat-list-item>
         </mat-list>
         <div>
-          <h4>Add New Feature</h4>
           <div fxLayout="column" fxLayoutAlign="start center">
             <mat-form-field appearance="fill">
               <mat-label>Feature</mat-label>
@@ -101,16 +101,14 @@
         <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
           <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
         </div>
-        <button mat-raised-button (click)="toggleShowing('features')" color="primary">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
       </mat-card-actions>
     </mat-card>
     <!-- References -->
-    <mat-toolbar *ngIf="!isShowing.references">
+    <mat-toolbar>
       <span fxFlex>Edit References</span>
       <button mat-raised-button (click)="toggleShowing('references')" color="primary">
-          <mat-icon>keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="!isShowing.references">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="isShowing.references">keyboard_arrow_down</mat-icon>
       </button>
     </mat-toolbar>
     <mat-card *ngIf="isShowing.references">
@@ -121,13 +119,12 @@
             <span class="side-margins" fxFlex>{{ reference.publication}}</span>
             <span class="side-margins" fxFlex>{{ reference.number}}</span>
             <span *ngIf="reference.additional !== '' && reference.additional !== null" class="side-margins" fxFlex>{{ reference.additional}}</span>
-            <button mat-raised-button(click)="deletedRelated('inscription_references', reference.id)" color="warn">
+            <button mat-raised-button (click)="deletedRelated('inscription_references', reference.id)" color="warn">
                 <mat-icon>delete_forever</mat-icon>
             </button>
           </mat-list-item>
         </mat-list>
         <div>
-          <h4>Add New Reference</h4>
           <div fxLayout="column" fxLayoutAlign="start center">
             <mat-form-field appearance="fill">
               <mat-label>Publication</mat-label>
@@ -154,16 +151,14 @@
         <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
           <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
         </div>
-        <button mat-raised-button (click)="toggleShowing('references')" color="primary">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
       </mat-card-actions>
     </mat-card>
     <!-- Institutions -->
-    <mat-toolbar *ngIf="!isShowing.institutions">
+    <mat-toolbar>
       <span fxFlex>Edit Institutions</span>
       <button mat-raised-button (click)="toggleShowing('institutions')" color="primary">
-          <mat-icon>keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="!isShowing.institutions">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="isShowing.institutions">keyboard_arrow_down</mat-icon>
       </button>
     </mat-toolbar>
     <mat-card *ngIf="isShowing.institutions">
@@ -174,16 +169,15 @@
             <span class="side-margins">{{ institution.id }}</span>
             <span>-</span>
             <span class="side-margins" fxFlex>{{ institution.title}}</span>
-            <button mat-raised-button (click)="deletedRelated('institutions', institution.id)" color="warn">
+            <button mat-raised-button (click)="deletedRelated('institution_inscriptions', [institution.id, itemId])" color="warn">
                 <mat-icon>delete_forever</mat-icon>
             </button>
           </mat-list-item>
         </mat-list>
         <div>
-          <h4>Add New Institution</h4>
           <div fxLayout="column" fxLayoutAlign="start center">
             <button mat-button [matMenuTriggerFor]="institutionmenu">
-              <span>Select Institution</span>
+              <span>Add Institution</span>
               <span *ngIf="newInstitution.id !== null" class="side-margins">{{ newInstitution.id }}</span>
             </button>
             <mat-menu #institutionmenu="matMenu">
@@ -194,7 +188,6 @@
               </button>
             </mat-menu>
             <div *ngIf="newInstitution.id !== null" fxLayout="column">
-              <span class="side-margins">-</span>
               <mat-form-field appearance="fill">
                 <mat-label>Role</mat-label>
                 <input matInput type="text" name="role" placeholder="Enter Role" [(ngModel)]="newInstitution.role">
@@ -213,16 +206,14 @@
         <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
           <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
         </div>
-        <button mat-raised-button (click)="toggleShowing('institutions')" color="primary">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
       </mat-card-actions>
     </mat-card>
     <!-- People -->
-    <mat-toolbar *ngIf="!isShowing.people">
+    <mat-toolbar>
       <span fxFlex>Edit People</span>
       <button mat-raised-button (click)="toggleShowing('people')" color="primary">
-          <mat-icon>keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="!isShowing.people">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="isShowing.people">keyboard_arrow_down</mat-icon>
       </button>
     </mat-toolbar>
     <mat-card *ngIf="isShowing.people">
@@ -233,16 +224,15 @@
             <span class="side-margins">{{ person.id }}</span>
             <span>-</span>
             <span class="side-margins" fxFlex>{{ person.title}}</span>
-            <button mat-raised-button (click)="deletedRelated('people', person.id)" color="warn">
+            <button mat-raised-button (click)="deletedRelated('people_in_inscriptions', [person.id, itemId])" color="warn">
                 <mat-icon>delete_forever</mat-icon>
             </button>
           </mat-list-item>
         </mat-list>
         <div>
-          <h4>Add New Person</h4>
           <div fxLayout="column" fxLayoutAlign="start center">
             <button mat-button [matMenuTriggerFor]="personmenu">
-              <span>Select Person</span>
+              <span>Add Person</span>
               <span *ngIf="newPerson.id !== null" class="side-margins">{{ newPerson.id }}</span>
             </button>
             <mat-menu #personmenu="matMenu">
@@ -271,16 +261,14 @@
         <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
           <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
         </div>
-        <button mat-raised-button (click)="toggleShowing('institutions')" color="primary">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
       </mat-card-actions>
     </mat-card>
     <!-- Honors -->
-    <mat-toolbar *ngIf="!isShowing.honors">
+    <mat-toolbar>
       <span fxFlex>Edit Honors</span>
       <button mat-raised-button (click)="toggleShowing('honors')" color="primary">
-          <mat-icon>keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="!isShowing.honors">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="isShowing.honors">keyboard_arrow_down</mat-icon>
       </button>
     </mat-toolbar>
     <mat-card *ngIf="isShowing.honors">
@@ -291,13 +279,12 @@
             <span class="side-margins">{{ honor.id }}</span>
             <span>-</span>
             <span class="side-margins" fxFlex>{{ honor.title}}</span>
-            <button mat-raised-button (click)="deletedRelated('honors', honor.id)" color="warn">
+            <button mat-raised-button (click)="deletedRelated('honors_in_inscriptions', [honor.id, itemId])" color="warn">
                 <mat-icon>delete_forever</mat-icon>
             </button>
           </mat-list-item>
         </mat-list>
         <div>
-          <h4>Add New Honor</h4>
           <div fxLayout="column" fxLayoutAlign="start center">
             <button mat-button [matMenuTriggerFor]="honormenu">
               <span>Select Honor</span>
@@ -325,16 +312,14 @@
         <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
           <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
         </div>
-        <button mat-raised-button (click)="toggleShowing('honors')" color="primary">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
       </mat-card-actions>
     </mat-card>
     <!-- People with Honors -->
-    <mat-toolbar *ngIf="!isShowing.peopleWithHonors">
+    <mat-toolbar>
       <span fxFlex>Edit People with Honors</span>
       <button mat-raised-button (click)="toggleShowing('peopleWithHonors')" color="primary">
-          <mat-icon>keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="!isShowing.peopleWithHonors">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="isShowing.peopleWithHonors">keyboard_arrow_down</mat-icon>
       </button>
     </mat-toolbar>
     <mat-card *ngIf="isShowing.peopleWithHonors">
@@ -353,7 +338,6 @@
           </div>
         </mat-list>
         <div>
-          <h4>Add New Person with Honor</h4>
           <div fxLayout="column" fxLayoutAlign="start center">
             <button mat-button [matMenuTriggerFor]="personwithhonorpersonmenu">
               <span>Select Person</span>
@@ -392,9 +376,6 @@
         <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
           <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
         </div>
-        <button mat-raised-button (click)="toggleShowing('peopleWithHonors')" color="primary">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
       </mat-card-actions>
     </mat-card>
   </div>

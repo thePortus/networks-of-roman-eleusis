@@ -61,6 +61,7 @@ export class EditInscriptionComponent implements OnInit {
     honorId: null,
     appearances: 1
   };
+
   constructor(
     private _router: Router,
     private _api: ApiService,
@@ -73,6 +74,7 @@ export class EditInscriptionComponent implements OnInit {
   }
 
   private load(): void {
+    this.errorMsgs = [];
     // get user profile details
     this.itemId = this._route.snapshot.paramMap.get('id')
     this.userDetails$ = this._user.user$;
@@ -252,12 +254,12 @@ export class EditInscriptionComponent implements OnInit {
 
   addNewInstitution() {
     if (this.newInstitution.id == null) {
-      this.errorMsgs.push('Error: no institution selected to add!');
+      this.errorMsgs.push('no institution selected to add!');
       return;
     }
     for (let institution of this.protectedData.institutions) {
       if (this.newInstitution.id == institution.id) {
-        this.errorMsgs.push('Error: institution is already in the inscription!');
+        this.errorMsgs.push('institution is already in the inscription!');
         return;
       }
     }
@@ -285,12 +287,12 @@ export class EditInscriptionComponent implements OnInit {
 
   addNewPerson() {
     if (this.newPerson.id == null) {
-      this.errorMsgs.push('Error: no person selected to add!');
+      this.errorMsgs.push('no person selected to add!');
       return;
     }
     for (let person of this.protectedData.people) {
       if (this.newPerson.id == person.id) {
-        this.errorMsgs.push('Error: person is already in the inscription!');
+        this.errorMsgs.push('person is already in the inscription!');
         return;
       }
     }
@@ -318,12 +320,12 @@ export class EditInscriptionComponent implements OnInit {
 
   addNewHonor() {
     if (this.newHonor.id == null) {
-      this.errorMsgs.push('Error: no honor selected to add!');
+      this.errorMsgs.push('no honor selected to add!');
       return;
     }
     for (let honor of this.protectedData.honors) {
       if (this.newHonor.id == honor.id) {
-        this.errorMsgs.push('Error: honor is already in the inscription!');
+        this.errorMsgs.push('honor is already in the inscription!');
         return;
       }
     }
@@ -347,17 +349,17 @@ export class EditInscriptionComponent implements OnInit {
 
   addNewPersonWithHonor() {
     if (this.newPersonWithHonor.personId == null) {
-      this.errorMsgs.push('Error: no person selected to add with honor!');
+      this.errorMsgs.push('no person selected to add with honor!');
       return;
     }
     if (this.newPersonWithHonor.honorId == null) {
-      this.errorMsgs.push('Error: no honor selected to add with person!');
+      this.errorMsgs.push('no honor selected to add with person!');
       return;
     }
     for (let person of this.protectedData.people) {
       for (let honor of person.honors) {
         if (person.id == this.newPersonWithHonor.personId && honor.id == this.newPersonWithHonor.honorId) {
-          this.errorMsgs.push('Error: person with honor is already in the inscription!');
+          this.errorMsgs.push('person with honor is already in the inscription!');
           return;
         }
       }

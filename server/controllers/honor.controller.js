@@ -98,7 +98,16 @@ exports.findOne = (req, res) => {
           'id', 'title', 'objectType', 'inscriptionType', 'location',
           'lowDate', 'highDate', 'date', 'dateSpan', 'lowDateUncertain',
           'highDateUncertain', 'text'
-        ]
+        ],
+        include: [{
+          model: Person,
+          as: 'people',
+          attributes: [
+            'id', 'title', 'category', 'origin', 'gender', 'athenianCitizen',
+            'romanCitizen', 'family', 'extended', 'praenomen', 'nomen', 'cognomen',
+            'onomos', 'patronym', 'deme', 'uncertain'
+          ]
+        }]
     }, {
       model: Institution,
       as: 'institutions',
