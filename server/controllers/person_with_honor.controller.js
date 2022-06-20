@@ -103,6 +103,7 @@ exports.delete = (req, res) => {
           message: 'Person With Honor was deleted successfully!'
         });
       } else {
+        console.log(requestObj);
         res.send({
           message: `Cannot delete Person with Honor with personId=${requestObj.personId}, honorId=${requestObj.honorId}, inscriptionId=${requestObj.inscriptionId}. Maybe Person With Honor was not found!`
         });

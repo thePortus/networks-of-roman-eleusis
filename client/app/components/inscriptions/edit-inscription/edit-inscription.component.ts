@@ -163,7 +163,7 @@ export class EditInscriptionComponent implements OnInit {
 
   deletedRelated(table:string,idNum:number|number[]) {
     if (confirm('Are you sure you delete item' + idNum + '? WARNING: CANNOT BE UNDONE!')) {
-      if (typeof idNum == 'string') {
+      if (typeof idNum == 'string' || typeof idNum == 'number') {
         this._api.deleteTypeRequest(table + '/' + idNum).subscribe(() => {
           this.load()
         });
@@ -174,7 +174,7 @@ export class EditInscriptionComponent implements OnInit {
         for (let idSegment of idNum) {
           path = path + idSegment.toString() + '/';
         }
-        this._api.deleteTypeRequest(path).subscribe((res:any) => {
+        this._api.deleteTypeRequest(path).subscribe(() => {
           this.load()
         });
       }
