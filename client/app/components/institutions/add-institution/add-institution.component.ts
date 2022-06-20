@@ -17,12 +17,12 @@ export class AddInstitutionComponent implements OnInit {
   serverErrorMsgs = [];
   acceptableOrigins = ['Athens', 'Corinth', 'Eleusis', 'Ephesus', 'Other', 'Rome', 'Samos'];
   acceptableCategories = ['Athenian', 'Eleusinian', 'Greek', 'Other', 'Panhellenic', 'Roman'];
-  acceptableTypes = ['Genos', 'Private Group', 'Public Assembly'];
+  acceptableTypes = ['Genos', 'Private Group', 'Public'];
   userDetails$: Observable<User>;
   user: any;
   selectedOrigin = 'Athens';
   selectedCategory = 'Athenian';
-  selectedType = 'Public Assembly';
+  selectedType = 'Public';
 
   constructor(
     private _router: Router,

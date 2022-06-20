@@ -161,3 +161,29 @@ npm start
 ```
 
 Open your browser to http://localhost:8080 to begin using the application.
+
+---
+
+## Customization
+
+#### How to Edit Database User Settings
+
+Edit the `server/config/config.json` AND `server/config/db.config.js` files with your desired settings.
+
+#### How to Change Site Title/Byline
+
+Edit the `client/app.settings.ts` file to change any desired display or site information.
+
+#### How to Change the Fonts
+
+Go to [fonts.google.com](https://fonts.google.com) and select two fonts, one for headers and one for body text. Once you have selected two styles, look under the "Use on the Web" pane in the bottom right. Click the `@import` option and copy the code BETWEEN the two `<style>` tags (but don't copy the style tags themselves). Then, go to `client/styles.scss` and REPLACE line 9 with the new statement (just below where it says 'import google fonts').
+
+Then, on lines 19, 20, and 21 of `client/styles.scss`, replate the names of the header/body fonts with your new fonts. That almost does it, but there is one last file to change. Edit `client/app.settings.ts` and change the `bodyFont` and `titleFont` properties to match your new fonts.
+
+#### How to Change Starting Data
+
+If you want to start a project from scratch, simply leave off the last line when performing the sequelize operations during setup. That is, do NOT run the `sequelize db:seed:all` line. This will leave you with a blank project. If you want to use alternative starting data, or data you previously exported from a different installation, simply replace the JSON files in the `server/seeders/import` folder with your desired new data.
+
+#### How to Change the Landing Page
+
+Unfortunately, the landing page does take a little knowledge of Angular to edit. But, you might be able to figure your way around the templates. The files are all located in the `client/components/home` folder and its subdirectories.

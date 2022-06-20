@@ -48,7 +48,7 @@ export class EditHonorComponent implements OnInit {
     private _router: Router,
     private _api: ApiService,
     private _user: UserService,
-    private _route: ActivatedRoute,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -96,8 +96,13 @@ export class EditHonorComponent implements OnInit {
 
   update() {
     this.protectedData.authorizingId = this.user.username;
+    // preen reqData of uneeded item info before sending
+    var reqData = this.protectedData;
+    delete reqData.inscriptions;
+    delete reqData.institutions;
+    delete reqData.people;
     if (this._validate(this.protectedData)) {
-      this._api.putTypeRequest('honors/' + this.itemId.toString(), this.protectedData).subscribe((res: any) => {
+      this._api.putTypeRequest('honors/' + this.itemId.toString(), reqData).subscribe((res: any) => {
         if (res.status !== 0) {
           this.gotoDetailsPage();
         }
@@ -165,7 +170,7 @@ export class EditHonorComponent implements OnInit {
       return;
     }
     for (let inscription of this.protectedData.inscriptions) {
-      if (this.newInstitution.id == inscription.id) {
+      if (this.newInscription.id == inscription.id) {
         this.errorMsgs.push('honor is already in the inscription!');
         return;
       }

@@ -1,4 +1,9 @@
-<div class="detail-wrapper" fxLayout="row" fxLayout.lt-md="column">
+<div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <div>Loading...</div>
+  </div>
+</div>
+<div class="detail-wrapper" fxFlex fxLayout="row" fxLayout.lt-md="column">
   <button mat-raised-button (click)="navigate('')" color="primary" aria-label="Back to inscriptions">
     <mat-icon fxHide.lt-md>keyboard_arrow_left</mat-icon>
     <mat-icon fxHide.gt-sm>keyboard_arrow_up</mat-icon>

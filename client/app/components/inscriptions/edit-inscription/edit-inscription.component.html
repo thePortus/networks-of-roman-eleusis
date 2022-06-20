@@ -1,4 +1,9 @@
-<div *ngIf="!loading" class="edit-wrapper" fxLayout="column" fxLayoutAlign="start center">
+<div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <div>Loading...</div>
+  </div>
+</div>
+<div *ngIf="!loading" class="edit-wrapper" fxFlex fxLayout="column" fxLayoutAlign="start center">
   <div class="edit-container" *ngIf="user.role == 'Owner' || user.role == 'Editor'">
     <button class="back-button" mat-raised-button (click)="gotoDetailsPage()" color="primary" aria-label="Back to details">
       <mat-icon>keyboard_arrow_up</mat-icon>

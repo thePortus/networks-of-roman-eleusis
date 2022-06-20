@@ -137,14 +137,21 @@ export class EditInscriptionComponent implements OnInit {
 
   update() {
     this.protectedData.authorizingId = this.user.username;
-    if (this.protectedData.date) {
+    // preen reqData of uneeded item info before sending
+    var reqData = this.protectedData;
+    delete reqData.references;
+    delete reqData.features;
+    delete reqData.institutions;
+    delete reqData.people;
+    delete reqData.honors;
+    if (reqData.date) {
       delete this.protectedData.date;
     }
-    if (this.protectedData.dateSpan) {
+    if (reqData.dateSpan) {
       delete this.protectedData.dateSpan;
     }
     if (this._validate(this.protectedData)) {
-      this._api.putTypeRequest('inscriptions/' + this.itemId.toString(), this.protectedData).subscribe((res: any) => {
+      this._api.putTypeRequest('inscriptions/' + this.itemId.toString(), reqData).subscribe((res: any) => {
         if (res.status !== 0) {
           this.gotoDetailsPage();
         }
