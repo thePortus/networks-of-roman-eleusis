@@ -7,7 +7,7 @@ By [David J. Thomas](mailto:dave.a.base@gmail.com), [thePortus.net](http://thePo
 
 ## Background
 
-The Sanctuary of Eleusis was one of the most famous in the ancient world. Its occult rites, known as the Eleusinian Mysteries, literally gave us the world "mysterious." On the borders of Athens, some fourteen miles distant, stood the shrine to The Two Goddesses, Demeter and Kore (Persephone). It's rites, known as the Eleusinian Mysteries, attracted thousands of initiates every year including Athenians of all kinds, tourists and visitors, Greeks, Romans, and even several Roman Emperors.
+The Sanctuary of Eleusis was one of the most famous in the ancient world. Its occult rites, known as the Eleusinian Mysteries, literally gave us the world "mysterious." On the borders of Athens, some fourteen miles distant, stood the shrine to The Two Goddesses, Demeter and Kore (Persephone). Its rites, known as the Eleusinian Mysteries, attracted thousands of initiates every year including Athenians of all kinds, tourists and visitors, Greeks, Romans, and even several Roman Emperors.
 
 *At this very spot*, the Athenians believed, Hades sprung from the underworld and snatched Persephone. More proudly, they boasted, it was this same spot where Demeter gave the gift of grain to humankind. The rites included several days of purification, sacrifice, and long marching and dancing into the night. We know very little because of the vow to keep all knowledge of them from any non-initiates.
 
