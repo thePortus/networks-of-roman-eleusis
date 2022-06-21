@@ -5,6 +5,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   dialectOptions: {
+    // comment out the line below for running on ubuntu
     socketPath: '/tmp/mysql.sock' //  Specify the socket file path
   },
   operatorsAliases: 0,
