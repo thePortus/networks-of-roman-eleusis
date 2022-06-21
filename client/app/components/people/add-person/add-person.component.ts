@@ -17,7 +17,7 @@ export class AddPersonComponent implements OnInit {
   serverErrorMsgs = [];
   acceptableOrigins = ['Athens', 'Boiotia', 'Cappadocia', 'Ephesus', 'Epidaurus', 'Macedon', 'Nicomedia', 'Rome', 'Syria', 'Uncertain'];
   acceptableCategories = ['Athenian', 'Imperial Family Member', 'Other Greek', 'Roman', 'Uncertain'];
-  acceptableGenders = ['Male', 'Female', 'Uncertain'];
+  acceptableGenders = ['Male', 'Female', 'Uncertain/Other'];
   isAthenianCitizen = true;
   isRomanCitizen = false;
   userDetails$: Observable<User>;
