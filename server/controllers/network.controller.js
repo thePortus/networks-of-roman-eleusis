@@ -69,7 +69,7 @@ exports.sponsorToHonorand = (req, res) => {
            if (sponsor.group == 'institutions') {
              if (!foundInstitutionIds.includes(sponsor.id)) {
                foundInstitutionIds.push(sponsor.id);
-               // add insitution to network nodes
+               // add institution to network nodes
                responseData.nodes.push(sponsor);
              }
            }
@@ -168,7 +168,7 @@ exports.sponsorToAppearing = (req, res) => {
            if (sponsor.group == 'institutions') {
              if (!foundInstitutionIds.includes(sponsor.id)) {
                foundInstitutionIds.push(sponsor.id);
-               // add insitution to network nodes
+               // add institution to network nodes
                responseData.nodes.push(sponsor);
              }
            }
@@ -245,7 +245,7 @@ exports.coappearances = (req, res) => {
          if (appearingEntity.group == 'institutions') {
            if (!foundInstitutionIds.includes(appearingEntity.id)) {
              foundInstitutionIds.push(appearingEntity.id);
-             // add insitution to network nodes
+             // add institution to network nodes
              responseData.nodes.push(appearingEntity);
            }
          }

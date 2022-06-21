@@ -1,6 +1,6 @@
 const rateLimit = require('express-rate-limit');
 
-const allowlist = ['128.0.0.1'];
+const allowlist = ['127.0.0.1'];
 
 module.exports = rateLimit({
   max: 100,
