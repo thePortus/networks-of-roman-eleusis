@@ -1,7 +1,13 @@
 # Networks of Roman Eleusis
 *A Digital Scholarship Tool for Studying Ancient Epigraphy*
 
-By [David J. Thomas](mailto:dave.a.base@gmail.com), [thePortus.net](http://thePortus.net)
+By [David J. Thomas](mailto:dave.a.base@gmail.com), [thePort.us](https://thePort.us)
+
+---
+
+MEAN Stack (MySQL ExpressJS Angular NodeJS) app for Greek & Latin Epigraphy.
+
+See the live site at [eleusis.theport.us](https://eleusis.thePort.us)!
 
 ---
 
@@ -113,8 +119,8 @@ brew install mysql
 
 ###### Setup - Linux & OSX
 ```sh
-# launch mysql as root user
-mysql -u root
+# launch mysql as root user, use the password you set
+sudo mysql -u root
 ```
 
 Once the mysql prompt starts enter...
@@ -123,16 +129,18 @@ Once the mysql prompt starts enter...
 -- replace eleusisuser and password with whatever you want
 CREATE USER 'eleusisuser'@'localhost' IDENTIFIED BY 'password';
 -- grant permissions to eleusisuser
-GRANT PRIVILEGE ON *.* TO 'eleusisuser'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'eleusisuser'@'localhost';
 -- update privileges
 FLUSH PRIVILEGES;
+-- leave mysql and return to shell
+EXIT;
 ```
 
 #### Install Angular & Sequelize CLIs Globally
 
 ```sh
-npm install -g @angular/cli
-npm install -g sequelize-sli
+sudo npm install -g @angular/cli
+sudo npm install -g sequelize-cli
 ```
 
 #### Clone and Install Repository
@@ -143,13 +151,31 @@ cd networks-of-roman-eleusis
 npm install
 ```
 
-Then, edit both configuration files in the `server/config` directory to reflect the username and password you set above. If you want to change the default name of the database, do so here. Now we need to create the database, migrate the models, and seed the starting data.
+#### Alter Settings
+
+Then, edit both server configuration files in the `server/config` directory to reflect the username and password you set above. If you want to change the default name of the database, do so here. Now we need to create the database, migrate the models, and seed the starting data.
 
 ```sh
 sequelize db:create
 sequelize db:migrate
 sequelize db:seed:all
 ```
+
+Now, we need to edit the front-end configuration file in the `client/app/app.settings.ts` file. If you are running this on your local computer you probably don't need to make any changes. But if you are running this in a web deployment, you need to change the `apiUrl` to reflect the web address.
+
+Finally, ONLY for Linux users, you need to comment out the a line in the `server/models/index.js` file. Edit the file and change the line
+```javascript
+  ...
+  socketPath: '/tmp/mysql.sock' //  Specify the socket file path
+  ...
+```
+to
+```javascript
+  ...
+  // socketPath: '/tmpmysql.sock' // specify the socket file path
+```
+
+#### Building and Running
 
 One last step before we can start, we need to compile the front-end application.
 
