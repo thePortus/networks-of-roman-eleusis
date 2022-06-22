@@ -5,7 +5,7 @@ By [David J. Thomas](mailto:dave.a.base@gmail.com), [thePort.us](https://thePort
 
 ---
 
-MEAN Stack (MySQL ExpressJS Angular NodeJS) app for Greek & Latin Epigraphy.
+Full Stack (MySQL ExpressJS Angular NodeJS) app for Greek & Latin Epigraphy.
 
 See the live site at [eleusis.theport.us](https://eleusis.thePort.us)!
 
