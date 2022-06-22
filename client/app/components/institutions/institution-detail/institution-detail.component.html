@@ -1,4 +1,8 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <div>Loading...</div>
+  </div>
+</div>
 <div class="detail-wrapper" fxFlex fxLayout="row" fxLayout.lt-md="column">
   <button mat-raised-button (click)="navigate('')" color="primary" aria-label="Back to inscriptions">
     <mat-icon fxHide.lt-md>keyboard_arrow_left</mat-icon>
@@ -9,7 +13,6 @@
         <div>Loading...</div>
     </div>
   </div>
-  <div *ngIf="loading == false" fxFlex>
   <div *ngIf="loading == false" fxFlex>
     <app-item-info table="institutions" label="Institution Details" [fields]="detailFields.main" [data]="protectedData"></app-item-info>
     <app-related-table *ngIf="protectedData.honors.length > 0" table="honors" label="Offices & Honors" [fields]="detailFields.honors" [data]="protectedData.honors"></app-related-table>
