@@ -97,3 +97,29 @@ mat-card {
   margin: 0.1em 0.1em 0.2em 0;
   float: left;
 }
+
+.single-col {
+  height: 100%;
+  padding-top: 75px;
+  width: 100%;
+  position: absolute;
+}
+
+.left-col {
+  height: 100%;
+  padding-top: 75px;
+  width: 50%;
+  position: absolute;
+  float: left;
+  overflow-y: scroll;
+}
+
+.right-col {
+  height: 100%;
+  padding-top: 75px;
+  width: 50%;
+  right: 0px;
+  position: absolute;
+  float: right;
+  overflow-y: scroll;
+}

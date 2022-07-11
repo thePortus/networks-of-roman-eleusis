@@ -1,58 +1,60 @@
-<div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
-  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-      <div>Loading...</div>
+<div class="single-col">
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <div>Loading...</div>
+    </div>
   </div>
-</div>
-<div fxFlex *ngIf="loading == false">
-  <table datatable [dtOptions]="dtOptions" class="display compact nowrap mat-elevation-z4">
-    <thead>
-        <tr>
-          <th>ID</th>
-          <th>Info</th>
-          <th>Person</th>
-          <th>Category</th>
-          <th>Origin</th>
-          <th>Gender</th>
-          <th>Ath. Citizen</th>
-          <th>Roman Citizen</th>
-          <th>Family</th>
-          <th>Extended</th>
-          <th>Praenomen</th>
-          <th>Nomen</th>
-          <th>Cognomen</th>
-          <th>Onomos</th>
-          <th>Patronym</th>
-          <th>Deme</th>
+  <div fxFlex *ngIf="loading == false">
+    <table datatable [dtOptions]="dtOptions" class="display compact nowrap mat-elevation-z4">
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Info</th>
+            <th>Person</th>
+            <th>Category</th>
+            <th>Origin</th>
+            <th>Gender</th>
+            <th>Ath. Citizen</th>
+            <th>Roman Citizen</th>
+            <th>Family</th>
+            <th>Extended</th>
+            <th>Praenomen</th>
+            <th>Nomen</th>
+            <th>Cognomen</th>
+            <th>Onomos</th>
+            <th>Patronym</th>
+            <th>Deme</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr (click)="navigate(row.id)" *ngFor="let row of protectedData">
+          <td>{{ row.id }}</td>
+          <td>
+            <button mat-mini-fab color="primary" aria-label="Person details button">
+              <mat-icon>info</mat-icon>
+            </button>
+          </td>
+          <td style="text-align: left">{{ row.title }}</td>
+          <td>{{ row.category }}</td>
+          <td>{{ row.origin }}</td>
+          <td>{{ row.gender }}</td>
+          <td><mat-icon class="green-check" *ngIf="row.athenianCitizen" >check_circle_outline</mat-icon></td>
+          <td><mat-icon class="green-check" *ngIf="row.romanCitizen" >check_circle_outline</mat-icon></td>
+          <td>{{ row.family }}</td>
+          <td>{{ row.extended }}</td>
+          <td>{{ row.praenomen }}</td>
+          <td>{{ row.nomen }}</td>
+          <td>{{ row.cognomen }}</td>
+          <td>{{ row.onomos }}</td>
+          <td>{{ row.patronym }}</td>
+          <td>{{ row.deme }}</td>
         </tr>
-    </thead>
-    <tbody>
-      <tr (click)="navigate(row.id)" *ngFor="let row of protectedData">
-        <td>{{ row.id }}</td>
-        <td>
-          <button mat-mini-fab color="primary" aria-label="Person details button">
-            <mat-icon>info</mat-icon>
-          </button>
-        </td>
-        <td style="text-align: left">{{ row.title }}</td>
-        <td>{{ row.category }}</td>
-        <td>{{ row.origin }}</td>
-        <td>{{ row.gender }}</td>
-        <td><mat-icon class="green-check" *ngIf="row.athenianCitizen" >check_circle_outline</mat-icon></td>
-        <td><mat-icon class="green-check" *ngIf="row.romanCitizen" >check_circle_outline</mat-icon></td>
-        <td>{{ row.family }}</td>
-        <td>{{ row.extended }}</td>
-        <td>{{ row.praenomen }}</td>
-        <td>{{ row.nomen }}</td>
-        <td>{{ row.cognomen }}</td>
-        <td>{{ row.onomos }}</td>
-        <td>{{ row.patronym }}</td>
-        <td>{{ row.deme }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="add-button-container">
-    <button *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="primary" routerLink="/people/add" mat-fab aria-label="Add new inscription">
-      <mat-icon>add</mat-icon>
-    </button>
+      </tbody>
+    </table>
+    <div class="add-button-container">
+      <button *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="primary" routerLink="/people/add" mat-fab aria-label="Add new inscription">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

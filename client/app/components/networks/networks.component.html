@@ -1,16 +1,18 @@
-<div fxLayout="column" fxLayoutAlign="start center">
-  <mat-toolbar color="primary" class="mat-elevation-z8">
-    <span fxFlex>Networks</span>
-  </mat-toolbar>
-  <div *ngFor="let network of networks">
-    <mat-card class="network-selector-container">
-      <mat-card-title>{{ network.label }}</mat-card-title>
-      <mat-card-content fxLayout="column" fxLayoutAlign="start center">
-        <p>{{ network.description }}</p>
-        <button (click)="navigate(network.id)" mat-raised-button color="primary" aria-label="Select network button">
-            View Network
-        </button>
-      </mat-card-content>
-    </mat-card>
+<div class="single-col">
+  <div fxLayout="column" fxLayoutAlign="start center">
+    <mat-toolbar color="primary" class="mat-elevation-z8">
+      <span fxFlex>Networks</span>
+    </mat-toolbar>
+    <div *ngFor="let network of networks">
+      <mat-card class="network-selector-container">
+        <mat-card-title>{{ network.label }}</mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+          <p>{{ network.description }}</p>
+          <button (click)="navigate(network.id)" mat-raised-button color="primary" aria-label="Select network button">
+              View Network
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

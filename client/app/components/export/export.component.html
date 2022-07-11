@@ -1,25 +1,27 @@
-<div *ngIf="!loading" class="export-wrapper" fxLayout="column" fxLayoutAlign="start center">
-  <div class="export-container" fxLayout="column" fxLayoutAlign="start center">
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.inscriptions" download="inscriptions.json">Download inscriptions.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.institutions" download="institutions.json">Download institutions.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.people" download="people.json">Download people.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.honors" download="honors.json">Download honors.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.inscriptionFeatures" download="inscription_features.json">Download inscription_features</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.inscriptionReferences" download="inscription_references.json">Download inscription_references.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.honorsInInscriptions" download="honors_in_inscriptions.json">Download honors_in_inscriptions.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.institutionHonors" download="institution_honors.json">Download institution_honors.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.institutionInscriptions" download="institution_inscription.json">Download institution_inscription.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.peopleInInscriptions" download="people_in_inscriptions.json">Download people_in_inscriptions.json</a></button>
-    <mat-divider></mat-divider>
-    <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.peopleWithHonors" download="people_with_honors.json">Download people_with_honors.json</a></button>
+<div class="single-col">
+  <div *ngIf="!loading" class="export-wrapper" fxLayout="column" fxLayoutAlign="start center">
+    <div class="export-container" fxLayout="column" fxLayoutAlign="start center">
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.inscriptions" download="inscriptions.json">Download inscriptions.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.institutions" download="institutions.json">Download institutions.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.people" download="people.json">Download people.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.honors" download="honors.json">Download honors.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.inscriptionFeatures" download="inscription_features.json">Download inscription_features</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.inscriptionReferences" download="inscription_references.json">Download inscription_references.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.honorsInInscriptions" download="honors_in_inscriptions.json">Download honors_in_inscriptions.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.institutionHonors" download="institution_honors.json">Download institution_honors.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.institutionInscriptions" download="institution_inscription.json">Download institution_inscription.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.peopleInInscriptions" download="people_in_inscriptions.json">Download people_in_inscriptions.json</a></button>
+      <mat-divider></mat-divider>
+      <button class="padded-content" mat-raised-button color="primary"><a [href]="downloadJsonHrefs.peopleWithHonors" download="people_with_honors.json">Download people_with_honors.json</a></button>
+    </div>
   </div>
 </div>

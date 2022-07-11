@@ -1,47 +1,49 @@
-<div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
-  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-      <div>Loading...</div>
+<div class="single-col">
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <div>Loading...</div>
+    </div>
   </div>
-</div>
-<div fxFlex *ngIf="loading == false">
-  <table datatable [dtOptions]="dtOptions" class="display compact nowrap mat-elevation-z4">
-    <thead>
-        <tr>
-          <th>ID</th>
-          <th>Info</th>
-          <th>IE</th>
-          <th>Inscription</th>
-          <th>Object Type</th>
-          <th>Inscription Type</th>
-          <th>Location</th>
-          <th>Date</th>
-          <th>Low Date</th>
-          <th>High Date</th>
-          <th>Date Span</th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr (click)="navigate(row.id)" *ngFor="let row of protectedData">
-        <td>{{ row.id }}</td>
-        <td>
-          <button mat-mini-fab color="primary" aria-label="Inscription details button">
-            <mat-icon>info</mat-icon>
-          </button>
-        </td>
-        <td>{{ row.ie }}</td>
-        <td style="text-align: left">{{ row.title }}</td>
-        <td>{{ row.objectType }}</td>
-        <td>{{ row.inscriptionType }}</td>
-        <td>{{ row.location }}</td>
-        <td>{{ row.date }}</td>
-        <td>{{ row.lowDate }}</td>
-        <td>{{ row.highDate }}</td>
-        <td>{{ row.dateSpan }}</td>
-    </tbody>
-  </table>
-  <div class="add-button-container">
-    <button *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="primary" routerLink="/inscriptions/add" mat-fab aria-label="Add new inscription">
-      <mat-icon>add</mat-icon>
-    </button>
+  <div fxFlex *ngIf="loading == false">
+    <table datatable [dtOptions]="dtOptions" class="display compact nowrap mat-elevation-z4">
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Info</th>
+            <th>IE</th>
+            <th>Inscription</th>
+            <th>Object Type</th>
+            <th>Inscription Type</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Low Date</th>
+            <th>High Date</th>
+            <th>Date Span</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr (click)="navigate(row.id)" *ngFor="let row of protectedData">
+          <td>{{ row.id }}</td>
+          <td>
+            <button mat-mini-fab color="primary" aria-label="Inscription details button">
+              <mat-icon>info</mat-icon>
+            </button>
+          </td>
+          <td>{{ row.ie }}</td>
+          <td style="text-align: left">{{ row.title }}</td>
+          <td>{{ row.objectType }}</td>
+          <td>{{ row.inscriptionType }}</td>
+          <td>{{ row.location }}</td>
+          <td>{{ row.date }}</td>
+          <td>{{ row.lowDate }}</td>
+          <td>{{ row.highDate }}</td>
+          <td>{{ row.dateSpan }}</td>
+      </tbody>
+    </table>
+    <div class="add-button-container">
+      <button *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="primary" routerLink="/inscriptions/add" mat-fab aria-label="Add new inscription">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
