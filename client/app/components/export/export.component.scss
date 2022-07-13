@@ -1,5 +1,15 @@
-:host .export-container {
-  width: 800px;
+/* If the screen size is 601px wide or more, set the font-size for large screen */
+@media screen and (min-width: 601px) {
+  :host .export-container {
+    width: 800px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size for mobile */
+@media screen and (max-width: 600px) {
+  :host .export-container {
+    width: 350px;
+  }
 }
 
 :host button {
