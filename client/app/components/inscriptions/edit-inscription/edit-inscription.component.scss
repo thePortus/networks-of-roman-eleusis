@@ -15,6 +15,10 @@
   :host .edit-container {
     width: 350px;
   }
+
+  :host mat-toolbar span {
+    font-size: .5em;
+  }
 }
 
 :host .checkbox-option {
