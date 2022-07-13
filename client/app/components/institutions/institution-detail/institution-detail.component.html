@@ -1,5 +1,6 @@
-<div class="single-col">
-  <div class="detail-wrapper" fxFlex fxLayout="row" fxLayout.lt-md="column">
+<div>
+  <!-- non-mobile displays -->
+  <div class="detail-wrapper" fxFlex fxLayout="row" fxHide.lt-md>
     <div class="left-col">
       <button mat-raised-button (click)="navigate('')" color="primary" aria-label="Back to inscriptions">
         <mat-icon fxHide.lt-md>keyboard_arrow_left</mat-icon>
@@ -12,14 +13,34 @@
       </div>
       <div *ngIf="loading == false" fxFlex>
         <app-item-info table="institutions" label="Institution Details" [fields]="detailFields.main" [data]="protectedData"></app-item-info>
-        <app-related-table *ngIf="protectedData.honors.length > 0" table="honors" label="Offices & Honors" [fields]="detailFields.honors" [data]="protectedData.honors"></app-related-table>
-        <app-related-table *ngIf="protectedData.inscriptions.length > 0" table="inscriptions" label="Inscriptions" [fields]="detailFields.inscriptions" [data]="protectedData.inscriptions"></app-related-table>
-        <app-related-table *ngIf="protectedData.people.length > 0" table="people" label="Officers" [fields]="detailFields.people" [data]="protectedData.people"></app-related-table>
+        <app-data-table *ngIf="protectedData.honors.length > 0" table="honors" label="Offices & Honors" [fields]="detailFields.honors" [data]="protectedData.honors"></app-data-table>
+        <app-data-table *ngIf="protectedData.inscriptions.length > 0" table="inscriptions" label="Inscriptions" [fields]="detailFields.inscriptions" [data]="protectedData.inscriptions"></app-data-table>
+        <app-data-table *ngIf="protectedData.people.length > 0" table="people" label="Officers" [fields]="detailFields.people" [data]="protectedData.people"></app-data-table>
       </div>
     </div>
     <div class="right-col">
       <div *ngIf="loading == false" fxFlex>
           <app-network-graph label="Visual Browser" [data]="protectedNetwork"></app-network-graph>
+      </div>
+    </div>
+  </div>
+  <!-- mobile displays -->
+  <div class="detail-wrapper single-col" fxFlex fxLayout="column" fxHide.gt-sm>
+    <div fxLayout="column">
+      <button mat-raised-button (click)="navigate('')" color="primary" aria-label="Back to institutions">
+        <mat-icon fxHide.lt-md>keyboard_arrow_left</mat-icon>
+        <mat-icon fxHide.gt-sm>keyboard_arrow_up</mat-icon>
+      </button>
+      <div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+            <div>Loading...</div>
+        </div>
+      </div>
+      <div *ngIf="loading == false" fxFlex>
+        <app-item-info table="institutions" label="Institution Details" [fields]="detailFields.main" [data]="protectedData"></app-item-info>
+        <app-data-table *ngIf="protectedData.honors.length > 0" table="honors" label="Offices & Honors" [fields]="detailFields.honors" [data]="protectedData.honors"></app-data-table>
+        <app-data-table *ngIf="protectedData.inscriptions.length > 0" table="inscriptions" label="Inscriptions" [fields]="detailFields.inscriptions" [data]="protectedData.inscriptions"></app-data-table>
+        <app-data-table *ngIf="protectedData.people.length > 0" table="people" label="Officers" [fields]="detailFields.people" [data]="protectedData.people"></app-data-table>
       </div>
     </div>
   </div>

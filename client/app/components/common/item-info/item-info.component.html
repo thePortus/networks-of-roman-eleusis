@@ -1,18 +1,41 @@
 <mat-card *ngIf="loading == false">
-  <mat-toolbar class="mat-elevation-z8">
-    <span fxFlex>{{ label }}</span>
-    <button mat-raised-button (click)="goToEdit()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="accent" aria-label="Edit item">
-        <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-raised-button (click)="deleteItem()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="warn" aria-label="Edit item">
-        <mat-icon>delete_forever</mat-icon>
-    </button>
-    <button (click)="toggleShowing()" mat-raised-button color="primary" aria-label="Toggle show table">
-        <mat-icon *ngIf="!isShowing">keyboard_arrow_up</mat-icon>
-        <mat-icon *ngIf="isShowing">keyboard_arrow_down</mat-icon>
-    </button>
+  <!-- non-mobile toolbar -->
+  <mat-toolbar class="mat-elevation-z8" fxLayout="row" fxLayoutAlign="start center" fxHide.lt-md>
+    <span class="item-name" fxFlex>{{ label }}</span>
+    <div fxLayout="row">
+      <button mat-raised-button (click)="goToEdit()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="accent" aria-label="Edit item">
+          <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-raised-button (click)="deleteItem()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="warn" aria-label="Edit item">
+          <mat-icon>delete_forever</mat-icon>
+      </button>
+      <button (click)="toggleShowing()" mat-raised-button color="primary" aria-label="Toggle show table">
+          <mat-icon *ngIf="!isShowing">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="isShowing">keyboard_arrow_down</mat-icon>
+      </button>
+    </div>
   </mat-toolbar>
-  <mat-card-content *ngIf="isShowing" class="padded-content" fxLayout="column">
+  <!-- mobile toolbar -->
+  <mat-toolbar class="mat-elevation-z8" fxLayout="column" fxLayoutAlign="start center" fxHide.gt-sm>
+    <mat-toolbar-row>
+      <span class="item-name" fxFlex>{{ label }}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button mat-raised-button (click)="goToEdit()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="accent" aria-label="Edit item">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-raised-button (click)="deleteItem()" *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="warn" aria-label="Edit item">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+        <button (click)="toggleShowing()" mat-raised-button color="primary" aria-label="Toggle show table">
+            <mat-icon *ngIf="!isShowing">keyboard_arrow_up</mat-icon>
+            <mat-icon *ngIf="isShowing">keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-card-content *ngIf="isShowing" class="padded-content info-container" fxLayout="column">
     <table class="mat-elevation-z8">
         <thead>
           <tr>
@@ -22,7 +45,7 @@
         <tbody>
           <tr *ngFor="let field of fields">
             <td class="padded-content">{{ field.label }}:</td>
-            <td style="width:100%" class="padded-content">
+            <td class="padded-content">
               <span *ngIf="field.type=='text'">{{ protectedData[field.name] }}</span>
               <span *ngIf="field.type=='check'"><mat-icon class="green-check" *ngIf="protectedData[field.name] == true" >check_circle_outline</mat-icon></span>
               <pre *ngIf="field.type=='code'">{{ protectedData[field.name] }}</pre>

@@ -1,5 +1,6 @@
 :host table {
   border-collapse: collapse;
+  overflow-x: hidden;
 }
 
 :host tr:nth-child(even) {
@@ -9,4 +10,22 @@
 :host mat-toolbar button {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+:host .info-container {
+  overflow-x: scroll;
+}
+
+/* If the screen size is 601px wide or more, set the font-size for large screen */
+@media screen and (min-width: 601px) {
+  :host .item-name {
+    font-size: 1em;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size for mobile */
+@media screen and (max-width: 600px) {
+  :host .item-name {
+    font-size: .75em;
+  }
 }

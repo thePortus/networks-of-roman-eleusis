@@ -17,6 +17,40 @@ export class InscriptionsComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   userDetails$: Observable<User>;
   user: any;
+  filterBy: any;
+  detailFields = [{
+      name: 'id',
+      label: 'ID',
+      type: 'text'
+    }, {
+      name: 'ie',
+      label: 'IE',
+      type: 'text'
+    }, {
+      name: 'objectType',
+      label: 'Object Type',
+      type: 'text'
+    }, {
+      name: 'inscriptionType',
+      label: 'Inscription Type',
+      type: 'text'
+    }, {
+      name: 'location',
+      label: 'Location',
+      type: 'text'
+    }, {
+      name: 'date',
+      label: 'Date',
+      type: 'text'
+    }, {
+      name: 'lowDate',
+      label: 'Low Date',
+      type: 'text'
+    }, {
+      name: 'highDate',
+      label: 'High Date',
+      type: 'text'
+    }];
 
   constructor(
     private _router: Router,

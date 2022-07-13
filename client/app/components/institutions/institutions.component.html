@@ -5,32 +5,7 @@
     </div>
   </div>
   <div fxFlex *ngIf="loading == false">
-    <table datatable [dtOptions]="dtOptions" class="display compact nowrap mat-elevation-z4">
-      <thead>
-          <tr>
-            <th>ID</th>
-            <th>Info</th>
-            <th>Institution</th>
-            <th>Category</th>
-            <th>Origin</th>
-            <th>Type</th>
-          </tr>
-      </thead>
-      <tbody>
-        <tr (click)="navigate(row.id)" *ngFor="let row of protectedData">
-          <td>{{ row.id }}</td>
-          <td>
-            <button mat-mini-fab color="primary" aria-label="Institution details button">
-              <mat-icon>info</mat-icon>
-            </button>
-          </td>
-          <td style="text-align: left">{{ row.title }}</td>
-          <td>{{ row.category }}</td>
-          <td>{{ row.origin }}</td>
-          <td>{{ row.type }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <app-data-table table="institutions" [fields]="detailFields" [data]="protectedData"></app-data-table>
     <div class="add-button-container">
       <button *ngIf="user.role == 'Owner' || user.role == 'Editor'" color="primary" routerLink="/institutions/add" mat-fab aria-label="Add new inscription">
         <mat-icon>add</mat-icon>
