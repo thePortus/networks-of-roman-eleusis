@@ -50,7 +50,7 @@ import { HonorDetailComponent } from './components/honors/honor-detail/honor-det
 import { InstitutionDetailComponent } from './components/institutions/institution-detail/institution-detail.component';
 import { NotFoundComponent } from './components/common/not-found/not-found.component';
 import { ItemInfoComponent } from './components/common/item-info/item-info.component';
-import { RelatedTableComponent } from './components/common/related-table/related-table.component';
+import { DataTableComponent } from './components/common/data-table/data-table.component';
 import { NetworkGraphComponent } from './components/common/network-graph/network-graph.component';
 import { PrivacyPolicyComponent } from './components/common/privacy-policy/privacy-policy.component';
 import { SponsorsToHonorandsNetworkComponent } from './components/networks/sponsors-to-honorands-network/sponsors-to-honorands-network.component';
@@ -69,6 +69,7 @@ import { ExportComponent } from './components/export/export.component';
 import { EditHonorComponent } from './components/honors/edit-honor/edit-honor.component';
 import { EditInstitutionComponent } from './components/institutions/edit-institution/edit-institution.component';
 import { EditPersonComponent } from './components/people/edit-person/edit-person.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,7 @@ import { EditPersonComponent } from './components/people/edit-person/edit-person
     ConfirmRoleChangeDialog,
     NotFoundComponent,
     ItemInfoComponent,
-    RelatedTableComponent,
+    DataTableComponent,
     NetworkGraphComponent,
     PrivacyPolicyComponent,
     SponsorsToHonorandsNetworkComponent,
@@ -113,7 +114,8 @@ import { EditPersonComponent } from './components/people/edit-person/edit-person
     ExportComponent,
     EditHonorComponent,
     EditInstitutionComponent,
-    EditPersonComponent
+    EditPersonComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

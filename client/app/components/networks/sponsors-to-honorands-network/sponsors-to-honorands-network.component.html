@@ -1,9 +1,11 @@
-<div *ngIf="!loading" fxLayout="column">
-  <button mat-raised-button (click)="navigate()" color="primary" aria-label="Back to networks">
-    <mat-icon>keyboard_arrow_up</mat-icon>
-  </button>
-  <div fxLayout="column" fxLayoutAlign="start center">
-    <mat-toolbar class="mat-elevation-z8">Sponsors and Honorands</mat-toolbar>
-    <app-network-graph label="" [options]="options" [data]="protectedData"></app-network-graph>
+<div class="single-col">
+  <div *ngIf="!loading" fxLayout="column">
+    <button mat-raised-button (click)="navigate()" color="primary" aria-label="Back to networks">
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <mat-toolbar class="mat-elevation-z8">Sponsors and Honorands</mat-toolbar>
+      <app-network-graph label="" [options]="options" [data]="protectedData"></app-network-graph>
+    </div>
   </div>
 </div>

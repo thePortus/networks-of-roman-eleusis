@@ -1,151 +1,153 @@
-<div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
-  <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-      <div>Loading...</div>
+<div class="single-col">
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <div>Loading...</div>
+    </div>
   </div>
-</div>
-<div *ngIf="!loading" class="edit-wrapper" fxFlex fxLayout="column" fxLayoutAlign="start center">
-  <div class="edit-container" *ngIf="user.role == 'Owner' || user.role == 'Editor'">
-    <button class="back-button" mat-raised-button (click)="gotoDetailsPage()" color="primary" aria-label="Back to details">
-      <mat-icon>keyboard_arrow_up</mat-icon>
-    </button>
-    <!-- Details -->
-    <mat-card>
-      <mat-card-title>Edit Institution</mat-card-title>
-      <mat-card-content fxLayout="column" fxLayoutAlign="start center">
-        <mat-form-field appearance="fill">
-          <mat-label>Title</mat-label>
-          <input matInput type="text" name="title" placeholder="Enter Title" [(ngModel)]="protectedData.title" required>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Origin</mat-label>
-          <mat-select [(value)]="protectedData.origin">
-            <mat-option *ngFor="let origin of acceptableOrigins" [value]="origin">{{ origin }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Category</mat-label>
-          <mat-select [(value)]="protectedData.category">
-            <mat-option *ngFor="let category of acceptableCategories" [value]="category">{{ category }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Type</mat-label>
-          <mat-select [(value)]="protectedData.type">
-            <mat-option *ngFor="let type of acceptableTypes" [value]="type">{{ type }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
-        <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
-        </div>
-        <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
-        </div>
-        <button mat-raised-button type="submit" (click)="submit()" color="primary" aria-label="Edit institution button">Edit Institution</button>
-      </mat-card-actions>
-    </mat-card>
-    <!-- Inscriptions -->
-    <mat-toolbar>
-      <span fxFlex>Edit Inscriptions</span>
-      <button mat-raised-button (click)="toggleShowing('inscriptions')" color="primary">
-          <mat-icon *ngIf="!isShowing.inscriptions">keyboard_arrow_up</mat-icon>
-          <mat-icon *ngIf="isShowing.inscriptions">keyboard_arrow_down</mat-icon>
+  <div *ngIf="!loading" class="edit-wrapper" fxFlex fxLayout="column" fxLayoutAlign="start center">
+    <div class="edit-container" *ngIf="user.role == 'Owner' || user.role == 'Editor'">
+      <button class="back-button" mat-raised-button (click)="gotoDetailsPage()" color="primary" aria-label="Back to details">
+        <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
-    </mat-toolbar>
-    <mat-card *ngIf="isShowing.inscriptions">
-      <mat-card-title>Edit Inscriptions of Institution</mat-card-title>
-      <mat-card-content fxLayout="column" fxLayoutAlign="start center">
-        <mat-list dense>
-          <mat-list-item *ngFor="let inscription of protectedData.inscriptions">
-            <span class="side-margins">{{ inscription.id }}</span>
-            <span>-</span>
-            <span class="side-margins" fxFlex>{{ inscription.title}}</span>
-            <button mat-raised-button (click)="deletedRelated('institution_inscriptions', [itemId, inscription.id])" color="warn">
-                <mat-icon>delete_forever</mat-icon>
-            </button>
-          </mat-list-item>
-        </mat-list>
-        <div>
-          <div fxLayout="column" fxLayoutAlign="start center">
-            <button mat-button [matMenuTriggerFor]="inscriptionmenu">
-              <span>Select Inscription</span>
-              <span *ngIf="newInscription.id !== null" class="side-margins">{{ newInscription.id }}</span>
-            </button>
-            <mat-menu #inscriptionmenu="matMenu">
-              <button (click)="selectInscription(inscription.id)" *ngFor="let inscription of protectedRelated.inscriptions" mat-menu-item>
-                <span class="side-margins">{{ inscription.id }}</span>
-                <span>-</span>
-                <span class="side-margins" fxFlex>{{ inscription.title }}</span>
+      <!-- Details -->
+      <mat-card>
+        <mat-card-title>Edit Institution</mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+          <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" name="title" placeholder="Enter Title" [(ngModel)]="protectedData.title" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Origin</mat-label>
+            <mat-select [(value)]="protectedData.origin">
+              <mat-option *ngFor="let origin of acceptableOrigins" [value]="origin">{{ origin }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select [(value)]="protectedData.category">
+              <mat-option *ngFor="let category of acceptableCategories" [value]="category">{{ category }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Type</mat-label>
+            <mat-select [(value)]="protectedData.type">
+              <mat-option *ngFor="let type of acceptableTypes" [value]="type">{{ type }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+          <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
+          </div>
+          <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
+          </div>
+          <button mat-raised-button type="submit" (click)="submit()" color="primary" aria-label="Edit institution button">Edit Institution</button>
+        </mat-card-actions>
+      </mat-card>
+      <!-- Inscriptions -->
+      <mat-toolbar>
+        <span fxFlex>Edit Inscriptions</span>
+        <button mat-raised-button (click)="toggleShowing('inscriptions')" color="primary">
+            <mat-icon *ngIf="!isShowing.inscriptions">keyboard_arrow_up</mat-icon>
+            <mat-icon *ngIf="isShowing.inscriptions">keyboard_arrow_down</mat-icon>
+        </button>
+      </mat-toolbar>
+      <mat-card *ngIf="isShowing.inscriptions">
+        <mat-card-title>Edit Inscriptions of Institution</mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+          <mat-list dense>
+            <mat-list-item *ngFor="let inscription of protectedData.inscriptions">
+              <span class="side-margins">{{ inscription.id }}</span>
+              <span>-</span>
+              <span class="side-margins" fxFlex>{{ inscription.title}}</span>
+              <button mat-raised-button (click)="deletedRelated('institution_inscriptions', [itemId, inscription.id])" color="warn">
+                  <mat-icon>delete_forever</mat-icon>
               </button>
-            </mat-menu>
-            <div *ngIf="newInscription.id !== null" fxLayout="column">
-              <button mat-raised-button (click)="addNewInscription()" color="primary">
-                  <mat-icon>add</mat-icon>
+            </mat-list-item>
+          </mat-list>
+          <div>
+            <div fxLayout="column" fxLayoutAlign="start center">
+              <button mat-button [matMenuTriggerFor]="inscriptionmenu">
+                <span>Select Inscription</span>
+                <span *ngIf="newInscription.id !== null" class="side-margins">{{ newInscription.id }}</span>
               </button>
+              <mat-menu #inscriptionmenu="matMenu">
+                <button (click)="selectInscription(inscription.id)" *ngFor="let inscription of protectedRelated.inscriptions" mat-menu-item>
+                  <span class="side-margins">{{ inscription.id }}</span>
+                  <span>-</span>
+                  <span class="side-margins" fxFlex>{{ inscription.title }}</span>
+                </button>
+              </mat-menu>
+              <div *ngIf="newInscription.id !== null" fxLayout="column">
+                <button mat-raised-button (click)="addNewInscription()" color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
-        <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
-        </div>
-        <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
-        </div>
-      </mat-card-actions>
-    </mat-card>
-    <!-- Honors -->
-    <mat-toolbar>
-      <span fxFlex>Edit Honors</span>
-      <button mat-raised-button (click)="toggleShowing('honors')" color="primary">
-          <mat-icon *ngIf="!isShowing.honors">keyboard_arrow_up</mat-icon>
-          <mat-icon *ngIf="isShowing.honors">keyboard_arrow_down</mat-icon>
-      </button>
-    </mat-toolbar>
-    <mat-card *ngIf="isShowing.honors">
-      <mat-card-title>Edit Honors of Institution</mat-card-title>
-      <mat-card-content fxLayout="column" fxLayoutAlign="start center">
-        <mat-list dense>
-          <mat-list-item *ngFor="let honor of protectedData.honors">
-            <span class="side-margins">{{ honor.id }}</span>
-            <span>-</span>
-            <span class="side-margins" fxFlex>{{ honor.title}}</span>
-            <button mat-raised-button (click)="deletedRelated('institution_honors', [itemId, honor.id])" color="warn">
-                <mat-icon>delete_forever</mat-icon>
-            </button>
-          </mat-list-item>
-        </mat-list>
-        <div>
-          <div fxLayout="column" fxLayoutAlign="start center">
-            <button mat-button [matMenuTriggerFor]="honormenu">
-              <span>Select Honor</span>
-              <span *ngIf="newHonor.id !== null" class="side-margins">{{ newHonor.id }}</span>
-            </button>
-            <mat-menu #honormenu="matMenu">
-              <button (click)="selectHonor(honor.id)" *ngFor="let honor of protectedRelated.honors" mat-menu-item>
-                <span class="side-margins">{{ honor.id }}</span>
-                <span>-</span>
-                <span class="side-margins" fxFlex>{{ honor.title }}</span>
+        </mat-card-content>
+        <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+          <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
+          </div>
+          <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+      <!-- Honors -->
+      <mat-toolbar>
+        <span fxFlex>Edit Honors</span>
+        <button mat-raised-button (click)="toggleShowing('honors')" color="primary">
+            <mat-icon *ngIf="!isShowing.honors">keyboard_arrow_up</mat-icon>
+            <mat-icon *ngIf="isShowing.honors">keyboard_arrow_down</mat-icon>
+        </button>
+      </mat-toolbar>
+      <mat-card *ngIf="isShowing.honors">
+        <mat-card-title>Edit Honors of Institution</mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+          <mat-list dense>
+            <mat-list-item *ngFor="let honor of protectedData.honors">
+              <span class="side-margins">{{ honor.id }}</span>
+              <span>-</span>
+              <span class="side-margins" fxFlex>{{ honor.title}}</span>
+              <button mat-raised-button (click)="deletedRelated('institution_honors', [itemId, honor.id])" color="warn">
+                  <mat-icon>delete_forever</mat-icon>
               </button>
-            </mat-menu>
-            <div *ngIf="newHonor.id !== null" fxLayout="column">
-              <button mat-raised-button (click)="addNewHonor()" color="primary">
-                  <mat-icon>add</mat-icon>
+            </mat-list-item>
+          </mat-list>
+          <div>
+            <div fxLayout="column" fxLayoutAlign="start center">
+              <button mat-button [matMenuTriggerFor]="honormenu">
+                <span>Select Honor</span>
+                <span *ngIf="newHonor.id !== null" class="side-margins">{{ newHonor.id }}</span>
               </button>
+              <mat-menu #honormenu="matMenu">
+                <button (click)="selectHonor(honor.id)" *ngFor="let honor of protectedRelated.honors" mat-menu-item>
+                  <span class="side-margins">{{ honor.id }}</span>
+                  <span>-</span>
+                  <span class="side-margins" fxFlex>{{ honor.title }}</span>
+                </button>
+              </mat-menu>
+              <div *ngIf="newHonor.id !== null" fxLayout="column">
+                <button mat-raised-button (click)="addNewHonor()" color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
-        <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
-        </div>
-        <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
-        </div>
-      </mat-card-actions>
-    </mat-card>
+        </mat-card-content>
+        <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+          <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
+          </div>
+          <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 </div>

@@ -1,74 +1,76 @@
-<div class="add-wrapper" fxLayout="column" fxLayoutAlign="start center">
-  <form class="add-container" #myform="ngForm" (ngSubmit)="onSubmit(myform)" *ngIf="user.role == 'Owner' || user.role == 'Editor'">
-    <mat-card>
-      <mat-card-title>Add New Institution</mat-card-title>
-      <mat-card-content fxLayout="column" fxLayoutAlign="start center">
-        <mat-form-field appearance="fill">
-          <mat-label>ID</mat-label>
-          <input matInput type="number" name="id" placeholder="Enter ID (optional)" ngModel>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Title</mat-label>
-          <input matInput type="text" name="title" placeholder="Enter Title" ngModel required>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Origin</mat-label>
-          <mat-select [(value)]="selectedOrigin">
-            <mat-option *ngFor="let origin of acceptableOrigins" [value]="origin">{{ origin }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Category</mat-label>
-          <mat-select [(value)]="selectedCategory">
-            <mat-option *ngFor="let category of acceptableCategories" [value]="category">{{ category }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Gender</mat-label>
-          <mat-select [(value)]="selectedGender">
-            <mat-option *ngFor="let gender of acceptableGenders" [value]="gender">{{ gender }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-checkbox class="checkbox-option" color="primary" [(ngModel)]="isAthenianCitizen">
-          Athenian Citizen
-        </mat-checkbox>
-        <mat-checkbox class="checkbox-option" color="primary" [(ngModel)]="isRomanCitizen">
-          Roman Citizen
-        </mat-checkbox>
-        <mat-form-field appearance="fill">
-          <mat-label>Praenomen</mat-label>
-          <input matInput type="text" name="praenomen" placeholder="Enter praenomen" ngModel>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Nomen</mat-label>
-          <input matInput type="text" name="nomen" placeholder="Enter nomen" ngModel>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Cognomen</mat-label>
-          <input matInput type="text" name="cognomen" placeholder="Enter cognomen" ngModel>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Onomos</mat-label>
-          <input matInput type="text" name="onomos" placeholder="Enter onomos" ngModel>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Patronym</mat-label>
-          <input matInput type="text" name="patronym" placeholder="Enter patronym" ngModel>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Deme</mat-label>
-          <input matInput type="text" name="deme" placeholder="Enter deme" ngModel>
-        </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
-        <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
-        </div>
-        <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
-          <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
-        </div>
-        <button mat-raised-button type="submit" color="primary" aria-label="Add person button">Add Person</button>
-      </mat-card-actions>
-    </mat-card>
-  </form>
+<div class="single-col">
+  <div class="add-wrapper" fxLayout="column" fxLayoutAlign="start center">
+    <form class="add-container" #myform="ngForm" (ngSubmit)="onSubmit(myform)" *ngIf="user.role == 'Owner' || user.role == 'Editor'">
+      <mat-card>
+        <mat-card-title>Add New Institution</mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+          <mat-form-field appearance="fill">
+            <mat-label>ID</mat-label>
+            <input matInput type="number" name="id" placeholder="Enter ID (optional)" ngModel>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" name="title" placeholder="Enter Title" ngModel required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Origin</mat-label>
+            <mat-select [(value)]="selectedOrigin">
+              <mat-option *ngFor="let origin of acceptableOrigins" [value]="origin">{{ origin }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select [(value)]="selectedCategory">
+              <mat-option *ngFor="let category of acceptableCategories" [value]="category">{{ category }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Gender</mat-label>
+            <mat-select [(value)]="selectedGender">
+              <mat-option *ngFor="let gender of acceptableGenders" [value]="gender">{{ gender }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-checkbox class="checkbox-option" color="primary" [(ngModel)]="isAthenianCitizen">
+            Athenian Citizen
+          </mat-checkbox>
+          <mat-checkbox class="checkbox-option" color="primary" [(ngModel)]="isRomanCitizen">
+            Roman Citizen
+          </mat-checkbox>
+          <mat-form-field appearance="fill">
+            <mat-label>Praenomen</mat-label>
+            <input matInput type="text" name="praenomen" placeholder="Enter praenomen" ngModel>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Nomen</mat-label>
+            <input matInput type="text" name="nomen" placeholder="Enter nomen" ngModel>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Cognomen</mat-label>
+            <input matInput type="text" name="cognomen" placeholder="Enter cognomen" ngModel>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Onomos</mat-label>
+            <input matInput type="text" name="onomos" placeholder="Enter onomos" ngModel>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Patronym</mat-label>
+            <input matInput type="text" name="patronym" placeholder="Enter patronym" ngModel>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Deme</mat-label>
+            <input matInput type="text" name="deme" placeholder="Enter deme" ngModel>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions fxLayout="column" fxlayoutAlign="center center">
+          <div *ngIf="errorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let errorMsg of errorMsgs">Error: {{ errorMsg }}</div>
+          </div>
+          <div *ngIf="serverErrorMsgs.length > 0" class="error-msgs" fxLayout="column" fxLayoutAlign="start center">
+            <div *ngFor="let serverErrorMsg of serverErrorMsgs">Error: {{ serverErrorMsg }}</div>
+          </div>
+          <button mat-raised-button type="submit" color="primary" aria-label="Add person button">Add Person</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
 </div>

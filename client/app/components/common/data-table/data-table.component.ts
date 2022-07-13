@@ -2,11 +2,11 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-related-table',
-  templateUrl: './related-table.component.html',
-  styleUrls: ['./related-table.component.scss']
+  selector: 'app-data-table',
+  templateUrl: './data-table.component.html',
+  styleUrls: ['./data-table.component.scss']
 })
-export class RelatedTableComponent implements OnInit {
+export class DataTableComponent implements OnInit {
   @Input() table = '';
   @Input() label = '';
   @Input() fields = [];
@@ -15,6 +15,7 @@ export class RelatedTableComponent implements OnInit {
   loading: boolean = true;
   isShowing: boolean = false;
   protectedData: any;
+  filterBy: any;
   public dtOptions: DataTables.Settings = {};
 
   constructor(

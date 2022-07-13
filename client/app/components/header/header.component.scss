@@ -29,7 +29,7 @@
     font-size: 0.8vw;
   }
 
-  :host .header-button {
+  :host .header-button a {
     font-size: 1vw;
   }
 }
@@ -37,15 +37,15 @@
 /* If the screen size is 600px wide or less, set the font-size for mobile */
 @media screen and (max-width: 600px) {
   :host .header-title {
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 
   :host .header-credit {
     font-size: 2vw;
   }
 
-  :host .header-button {
-    font-size: 2vw;
+  :host .header-button a {
+    font-size: 2.2vw;
   }
 
   :host .header-button {

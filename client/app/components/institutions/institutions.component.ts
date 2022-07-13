@@ -17,6 +17,28 @@ export class InstitutionsComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   userDetails$: Observable<User>;
   user: any;
+  filterBy: any;
+  detailFields = [{
+      name: 'id',
+      label: 'ID',
+      type: 'text'
+    }, {
+      name: 'title',
+      label: 'Institution',
+      type: 'text'
+    }, {
+      name: 'origin',
+      label: 'Origin',
+      type: 'text'
+    }, {
+      name: 'category',
+      label: 'Category',
+      type: 'text'
+    }, {
+      name: 'type',
+      label: 'Type',
+      type: 'text'
+    }];
 
   constructor(
     private _router: Router,
