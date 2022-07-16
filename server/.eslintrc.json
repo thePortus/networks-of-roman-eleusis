@@ -4,5 +4,8 @@
     },
     "extends": [
         "../.eslintrc.json"
-    ]
+    ],
+    "parserOptions": {
+      "ecmaVersion": 6
+    }
 }
