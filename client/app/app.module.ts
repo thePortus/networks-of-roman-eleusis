@@ -20,7 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
-import { DataTablesModule } from "angular-datatables";
+import { DataTablesModule } from 'angular-datatables';
 // project modules
 import { AppRoutingModule } from './app-routing.module';
 // service imports
