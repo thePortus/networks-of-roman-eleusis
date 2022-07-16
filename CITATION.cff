@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Thomas
+    given-names: David
+    orcid: https://orcid.org/0000-0001-5494-6297
+title: "The Networks of Roman Eleusis"
+abstract: A digital scholarship tool for studying and analyzing ancient epigraphy using network visualizations.
+version: 1.0.0
+date-released: 2022-07-05
+license: MIT
+repository-code: "https://github.com/thePortus/networks-of-roman-eleusis"
