@@ -136,7 +136,6 @@ export class EditInscriptionComponent implements OnInit {
   }
 
   update() {
-    this.protectedData.authorizingId = this.user.username;
     // preen reqData of uneeded item info before sending
     var reqData = this.protectedData;
     delete reqData.references;
@@ -214,7 +213,6 @@ export class EditInscriptionComponent implements OnInit {
   addNewFeature() {
     if (confirm('Are you sure you want to add feature ' + this.newFeature.feature + '?')) {
       const reqObject = {
-        authorizingId: this.user.username,
         inscriptionId: this.itemId,
         feature: this.newFeature.feature,
         uncertain: this.newFeature.uncertain
@@ -237,7 +235,6 @@ export class EditInscriptionComponent implements OnInit {
   addNewReference() {
     if (confirm('Are you sure you want to add reference ' + this.newReference.publication + ' '+ this.newReference.number + ' ' + this.newReference.additional + '?')) {
       const reqObject = {
-        authorizingId: this.user.username,
         inscriptionId: this.itemId,
         publication: this.newReference.publication,
         number: this.newReference.number,
@@ -272,7 +269,6 @@ export class EditInscriptionComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add institution ' + this.newInstitution.id + '?')) {
       const reqObject = {
-        authorizingId: this.user.username,
         inscriptionId: this.itemId,
         institutionId: this.newInstitution.id,
         role: this.newInstitution.role
@@ -305,7 +301,6 @@ export class EditInscriptionComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add person ' + this.newPerson.id + '?')) {
       const reqObject = {
-        authorizingId: this.user.username,
         inscriptionId: this.itemId,
         personId: this.newPerson.id,
         role: this.newPerson.role
@@ -338,7 +333,6 @@ export class EditInscriptionComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add honor ' + this.newHonor.id + '?')) {
       const reqObject =  {
-        authorizingId: this.user.username,
         inscriptionId: this.itemId,
         honorId: this.newHonor.id
       };
@@ -373,7 +367,6 @@ export class EditInscriptionComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add person ' + this.newPersonWithHonor.personId + ' with honor ' + this.newPersonWithHonor.honorId + '?')) {
       const reqObject =  {
-        authorizingId: this.user.username,
         inscriptionId: parseInt(this.itemId),
         personId: this.newPersonWithHonor.personId,
         honorId: this.newPersonWithHonor.honorId,

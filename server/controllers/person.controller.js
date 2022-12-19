@@ -5,15 +5,11 @@ const Person = db.people;
 const Inscription = db.inscriptions;
 const Honor = db.honors;
 const Institution = db.institutions;
-const User = db.users;
 
 // Create and Save a new Person
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.title) {
     errorMsgs.push('Must contain an \'title\' field!');
   }
@@ -51,30 +47,15 @@ exports.create = (req, res) => {
     deme: req.body.deme || null,
     uncertain: req.body.uncertain || null
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding person=' + req.params.id + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
-      }
-      // Save Person in the database
-      Person.create(requestObj)
-        .then(data => {
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || 'Some error occurred while creating the Person.'
-          });
-        });
+  // Save Person in the database
+  Person.create(requestObj)
+    .then(data => {
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error adding person=' + req.params.id + ' with authorizingId=' + req.body.authorizingId
+        message:
+          err.message || 'Some error occurred while creating the Person.'
       });
     });
 };
@@ -84,7 +65,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   Person.findAll({
-      where: condition
+    where: condition
   })
     .then(data => {
       res.send(data);
@@ -160,9 +141,6 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   var errorMsgs = [];
   // validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.id) {
     errorMsgs.push('Must contain an \'id\' field!');
   }
@@ -174,37 +152,23 @@ exports.update = (req, res) => {
     return;
   }
   const id = req.params.id;
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error updating person=' + req.params.id + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
+  Person.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: 'Person was updated successfully.'
         });
-        return;
+      } else {
+        res.send({
+          message: `Cannot update Person with id=${id}. Maybe Person was not found or req.body is empty!`
+        });
       }
-      Person.update(req.body, {
-        where: { id: id }
-      })
-        .then(num => {
-          if (num == 1) {
-            res.send({
-              message: 'Person was updated successfully.'
-            });
-          } else {
-            res.send({
-              message: `Cannot update Person with id=${id}. Maybe Person was not found or req.body is empty!`
-            });
-          }
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: 'Error updating Person with id=' + id
-          });
-        });
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error updating person=' + req.params.id + ' with authorizingId=' + req.body.authorizingId
+        message: 'Error updating Person with id=' + id
       });
     });
 };

@@ -76,7 +76,6 @@ export class AddInscriptionComponent implements OnInit {
       inscriptionType: this.selectedInscriptionType,
       lowDateUncertain: this.isLowDateUncertain,
       highDateUncertain: this.isHighDateUncertain,
-      authorizingId: this.user.username,
       text: this.inscriptionText
     };
     // copy values from form into request object

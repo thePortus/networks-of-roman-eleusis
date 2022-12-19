@@ -77,8 +77,7 @@ export class EditPersonComponent implements OnInit {
   }
 
   update() {
-    this.protectedData.authorizingId = this.user.username;
-    // preen reqData of uneeded item info before sending
+    // prune reqData of uneeded item info before sending
     var reqData = this.protectedData;
     delete reqData.inscriptions;
     delete reqData.honors;
@@ -139,7 +138,6 @@ export class EditPersonComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add inscription ' + this.newInscription.id + '?')) {
       const reqObject = {
-        authorizingId: this.user.username,
         personId: this.itemId,
         inscriptionId: this.newInscription.id,
       };

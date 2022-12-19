@@ -1,18 +1,12 @@
 const db = require('../models');
 const Op = db.Sequelize.Op;
 
-const Inscription = db.inscriptions;
-const Institution = db.institutions;
 const InstitutionInscription = db.institutionInscriptions;
-const User = db.users;
 
 // Create and Save a new Institution Inscription
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.institutionId) {
     errorMsgs.push('Must contain an \'institutionId\' field!');
   }
@@ -32,30 +26,15 @@ exports.create = (req, res) => {
     uncertain: req.body.notes || false,
     notes: req.body.notes || ''
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding institution inscription institution=' + req.params.institutionId + ' and inscription=' + req.params.inscriptionId + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
-      }
-      InstitutionInscription.create(requestObj)
-        .then(data => {
-          console.log(`>> added Inscription id=${requestObj.inscriptionId} to Institution id=${requestObj.institutionId}`);
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || 'Some error occurred while adding the Inscription to Institution.'
-          });
-        });
+  InstitutionInscription.create(requestObj)
+    .then(data => {
+      console.log(`>> added Inscription id=${requestObj.inscriptionId} to Institution id=${requestObj.institutionId}`);
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error adding institution inscription institution=' + req.params.institutionId + ' and inscription=' + req.params.inscriptionId + ' with authorizingId=' + req.body.authorizingId
+        message:
+          err.message || 'Some error occurred while adding the Inscription to Institution.'
       });
     });
 };
@@ -65,8 +44,8 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   InstitutionInscription.findAll({
-      where: condition
-    })
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })

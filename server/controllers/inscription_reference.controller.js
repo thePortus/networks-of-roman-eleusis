@@ -3,15 +3,11 @@ const Op = db.Sequelize.Op;
 
 const InscriptionReference = db.inscriptionReferences;
 const Inscription = db.inscriptions;
-const User = db.users;
 
 // Create and Save a new Inscription Reference
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.inscriptionId) {
     errorMsgs.push('Must contain an \'inscriptionId\' field!');
   }
@@ -36,55 +32,40 @@ exports.create = (req, res) => {
     additional: req.body.additional || null,
     notes: req.body.notes || '',
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding inscription reference on=' + req.params.inscriptionId + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
+  // Find related existing entries
+  return Inscription.findByPk(requestObj.inscriptionId, {
+    include: [
+      {
+        model: InscriptionReference,
+        as: 'references',
+        attributes: ['id', 'publication', 'number', 'additional'],
       }
-      // Find related existing entries
-      return Inscription.findByPk(requestObj.inscriptionId, {
-        include: [
-          {
-            model: InscriptionReference,
-            as: 'references',
-            attributes: ['id', 'publication', 'number', 'additional'],
-          }
-        ],
-      })
-        .then(inscription => {
-          if (!inscription) {
-            const msg = 'Inscription not found!';
-            console.log(msg);
-            res.send({message: msg});
-            return null;
-          }
-          InscriptionReference.create(requestObj)
-            .then(data => {
-              console.log(`>> added Reference id=${requestObj.id} to Inscription id=${inscription.id}`);
-              res.send(data);
-            })
-            .catch(err => {
-              res.status(500).send({
-                message:
-                  err.message || 'Some error occurred while adding the Inscription Reference.'
-              });
-            });
+    ],
+  })
+    .then(inscription => {
+      if (!inscription) {
+        const msg = 'Inscription not found!';
+        console.log(msg);
+        res.send({message: msg});
+        return null;
+      }
+      InscriptionReference.create(requestObj)
+        .then(data => {
+          console.log(`>> added Reference id=${requestObj.id} to Inscription id=${inscription.id}`);
+          res.send(data);
         })
-        .catch((err) => {
-          const msg = '>> Error while adding Reference to Inscription: ';
-          console.log(msg, err);
-          res.send({message: msg});
-          return null;
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || 'Some error occurred while adding the Inscription Reference.'
+          });
         });
     })
-    .catch(err => {
-      res.status(500).send({
-        message: 'Error adding inscription reference on=' + req.params.inscriptionId + ' with authorizingId=' + req.body.authorizingId
-      });
+    .catch((err) => {
+      const msg = '>> Error while adding Reference to Inscription: ';
+      console.log(msg, err);
+      res.send({message: msg});
+      return null;
     });
 };
 
@@ -93,8 +74,8 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   InscriptionReference.findAll({
-      where: condition
-    })
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })
@@ -118,12 +99,12 @@ exports.findOne = (req, res) => {
           message: `Cannot find Inscription Reference with id=${id}.`
         });
       }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: 'Error retrieving Inscription Reference with id=' + id
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: 'Error retrieving Inscription Reference with id=' + id
+      });
     });
-  });
 };
 
 // Delete a Inscription Reference with the specified id in the request

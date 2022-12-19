@@ -4,15 +4,11 @@ const Op = db.Sequelize.Op;
 const Honor = db.honors;
 const Institution = db.institutions;
 const InstitutionHonor = db.institutionHonors;
-const User = db.users;
 
 // Create and Save a new Institution Honor
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.institutionId) {
     errorMsgs.push('Must contain an \'institutionId\' field!');
   }
@@ -31,30 +27,15 @@ exports.create = (req, res) => {
     honorId: req.body.honorId,
     notes: req.body.notes || ''
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding institution honor institution=' + req.params.institutionId + ' and honor=' + req.params.honorId + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
-      }
-      InstitutionHonor.create(requestObj)
-        .then(data => {
-          console.log(`>> added Honor id=${requestObj.honorId} to Institution id=${requestObj.institutionId}`);
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || 'Some error occurred while adding the Honor to Institution.'
-          });
-        });
+  InstitutionHonor.create(requestObj)
+    .then(data => {
+      console.log(`>> added Honor id=${requestObj.honorId} to Institution id=${requestObj.institutionId}`);
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error adding institution honor institution=' + req.params.institutionId + ' and honor=' + req.params.honorId + ' with authorizingId=' + req.body.authorizingId
+        message:
+          err.message || 'Some error occurred while adding the Honor to Institution.'
       });
     });
 };
@@ -64,8 +45,8 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   InstitutionHonor.findAll({
-      where: condition
-    })
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })
