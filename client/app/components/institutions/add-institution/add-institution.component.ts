@@ -54,7 +54,6 @@ export class AddInstitutionComponent implements OnInit {
       origin: this.selectedOrigin,
       category: this.selectedCategory,
       type: this.selectedType,
-      authorizingId: this.user.username
     };
     console.log(reqObject);
     // copy values from form into request object

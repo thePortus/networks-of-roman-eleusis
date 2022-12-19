@@ -53,8 +53,7 @@ export class AddHonorComponent implements OnInit {
     var reqObject = {
       origin: this.selectedOrigin,
       category: this.selectedCategory,
-      type: this.selectedType,
-      authorizingId: this.user.username
+      type: this.selectedType
     };
     console.log(reqObject);
     // copy values from form into request object

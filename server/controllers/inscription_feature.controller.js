@@ -3,15 +3,11 @@ const Op = db.Sequelize.Op;
 
 const InscriptionFeature = db.inscriptionFeatures;
 const Inscription = db.inscriptions;
-const User = db.users;
 
 // Create and Save a new Inscription Feature
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.inscriptionId) {
     errorMsgs.push('Must contain an \'inscriptionId\' field!');
   }
@@ -30,54 +26,39 @@ exports.create = (req, res) => {
     inscriptionId: req.body.inscriptionId,
     feature: req.body.feature,
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding inscription feature on=' + req.params.inscriptionId + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
+  // Find related existing entries
+  return Inscription.findByPk(requestObj.inscriptionId, {
+    include: [
+      {
+        model: InscriptionFeature,
+        as: 'features',
+        attributes: ['id', 'feature', 'uncertain'],
       }
-      // Find related existing entries
-      return Inscription.findByPk(requestObj.inscriptionId, {
-        include: [
-          {
-            model: InscriptionFeature,
-            as: 'features',
-            attributes: ['id', 'feature', 'uncertain'],
-          }
-        ],
-      })
-        .then(inscription => {
-          if (!inscription) {
-            const msg = 'Inscription not found!';
-            console.log(msg);
-            res.send({message: msg});
-            return null;
-          }
-          InscriptionFeature.create(requestObj)
-            .then(data => {
-              console.log(`>> added Feature id=${requestObj.id} to Inscription id=${inscription.id}`);
-              res.send(data);
-            })
-            .catch(err => {
-              res.status(500).send({
-                message:
-                  err.message || 'Some error occurred while adding the Inscription Feature.'
-              });
-            });
+    ],
+  })
+    .then(inscription => {
+      if (!inscription) {
+        const msg = 'Inscription not found!';
+        console.log(msg);
+        res.send({message: msg});
+        return null;
+      }
+      InscriptionFeature.create(requestObj)
+        .then(data => {
+          console.log(`>> added Feature id=${requestObj.id} to Inscription id=${inscription.id}`);
+          res.send(data);
         })
-        .catch((err) => {
-          const msg = '>> Error while adding Feature to Inscription: ';
-          console.log(msg, err);
-          res.send({message: msg});
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || 'Some error occurred while adding the Inscription Feature.'
+          });
         });
     })
-    .catch(err => {
-      res.status(500).send({
-        message: 'Error adding inscription feature on=' + req.params.inscriptionId + ' with authorizingId=' + req.body.authorizingId
-      });
+    .catch((err) => {
+      const msg = '>> Error while adding Feature to Inscription: ';
+      console.log(msg, err);
+      res.send({message: msg});
     });
 };
 
@@ -86,8 +67,8 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   InscriptionFeature.findAll({
-      where: condition
-    })
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })
@@ -111,12 +92,12 @@ exports.findOne = (req, res) => {
           message: `Cannot find Inscription Feature with id=${id}.`
         });
       }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: 'Error retrieving Inscription Feature with id=' + id
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: 'Error retrieving Inscription Feature with id=' + id
+      });
     });
-  });
 };
 
 // Delete a Inscription Feature with the specified id in the request

@@ -1,19 +1,12 @@
 const db = require('../models');
 const Op = db.Sequelize.Op;
 
-const Inscription = db.inscriptions;
-const Person = db.people;
-const Honor = db.honor;
 const PersonWithHonor = db.peopleWithHonors;
-const User = db.users;
 
 // Create and Save a new Person with Honor
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.personId) {
     errorMsgs.push('Must contain an \'personId\' field!');
   }
@@ -37,30 +30,15 @@ exports.create = (req, res) => {
     appearances: req.body.appearances || 1,
     uncertain: req.body.notes || false
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding institution honor institution=' + req.params.institutionId + ' and honor=' + req.params.honorId + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
-      }
-      PersonWithHonor.create(requestObj)
-        .then(data => {
-          console.log(`>> added Honor id=${requestObj.honorId} to Person id=${requestObj.personId} in Inscription id=${requestObj.inscriptionId}`);
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || 'Some error occurred while creating the Person with Honor.'
-          });
-        });
+  PersonWithHonor.create(requestObj)
+    .then(data => {
+      console.log(`>> added Honor id=${requestObj.honorId} to Person id=${requestObj.personId} in Inscription id=${requestObj.inscriptionId}`);
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error adding institution honor institution=' + req.params.institutionId + ' and honor=' + req.params.honorId + ' with authorizingId=' + req.body.authorizingId
+        message:
+          err.message || 'Some error occurred while creating the Person with Honor.'
       });
     });
 };
@@ -70,8 +48,8 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   PersonWithHonor.findAll({
-      where: condition
-    })
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })

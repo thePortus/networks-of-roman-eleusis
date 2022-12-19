@@ -5,16 +5,16 @@ module.exports = app => {
   const controller = require('../controllers/institution.controller.js');
   var router = require('express').Router();
   // Create a new Institution
-  router.post('/', limitRate, auth.verifyToken, controller.create);
+  router.post('/', limitRate, auth.verifyAdminToken, controller.create);
   // Retrieve all Institutions
   router.get('/', controller.findAll);
   // Retrieve a single Institution with id
   router.get('/:id', controller.findOne);
   // Update a Institution with id
-  router.put('/:id', limitRate, auth.verifyToken, controller.update);
+  router.put('/:id', limitRate, auth.verifyAdminToken, controller.update);
   // Delete a Institution with id
-  router.delete('/:id', limitRate, auth.verifyToken, controller.delete);
+  router.delete('/:id', limitRate, auth.verifyAdminToken, controller.delete);
   // Delete all Institutions
-  router.delete('/', limitRate, auth.verifyToken, controller.deleteAll);
+  router.delete('/', limitRate, auth.verifyAdminToken, controller.deleteAll);
   app.use('/api/institutions', router);
 };

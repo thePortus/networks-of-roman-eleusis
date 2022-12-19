@@ -11,7 +11,7 @@ exports.findAll = (req, res) => {
   const username = req.query.username;
   var condition = username ? { username: { [Op.like]: `%${username}%` } } : null;
   User.findAll({
-      where: condition
+    where: condition
   })
     .then(data => {
       res.send(data);
@@ -45,30 +45,30 @@ exports.login = (req, res) => {
     password: md5(req.body.password.toString()),
   };
   User.findOne({
-      where: {
-        username: requestObj.username,
-        password: requestObj.password
-      }
+    where: {
+      username: requestObj.username,
+      password: requestObj.password
+    }
   })
-   .then(data => {
-     if (!data || data.length == 0) {
-       res.status(500).send({
-         status: 0,
-         message:'User not found or password incorrect'
-       });
-     }
-     else {
-       let token = jwt.sign({ data: data }, 'secret');
-       res.send({ status: 1, data: data, token: token });
-     }
-   })
-   .catch(err => {
-     res.status(500).send({
-       status: 0,
-       message:
-         err.message || 'Some error occurred while logging in.'
-     });
-   });
+    .then(data => {
+      if (!data || data.length == 0) {
+        res.status(500).send({
+          status: 0,
+          message:'User not found or password incorrect'
+        });
+      }
+      else {
+        let token = jwt.sign({ data: data }, 'secret');
+        res.send({ status: 1, data: data, token: token });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        status: 0,
+        message:
+          err.message || 'Some error occurred while logging in.'
+      });
+    });
 };
 
 // Register a user
@@ -109,26 +109,26 @@ exports.register = (req, res) => {
         password: md5(req.body.password.toString()),
       };
       User.create(requestObj)
-       .then(data => {
-         if (!data) {
-           res.send({
-             status: 0,
-             message:
-               err.message || 'Some error occurred while registering.'
-           });
-         }
-         else {
-           let token = jwt.sign({ data: data }, 'secret');
-           res.send({ status: 1, data: data, token: token });
-         }
-       })
-       .catch(err => {
-         res.send({
-           status: 0,
-           message:
-             'An error occured, username or email may already be taken.'
-         });
-       });
+        .then(data => {
+          if (!data) {
+            res.send({
+              status: 0,
+              message:
+                err.message || 'Some error occurred while registering.'
+            });
+          }
+          else {
+            let token = jwt.sign({ data: data }, 'secret');
+            res.send({ status: 1, data: data, token: token });
+          }
+        })
+        .catch(err => {
+          res.send({
+            status: 0,
+            message:
+              'An error occured, username or email may already be taken.'
+          });
+        });
     });
 };
 
@@ -140,50 +140,29 @@ exports.update = (req, res) => {
     });
     return;
   }
-  if (!req.body.authorizingId) {
-    res.status(400).send({
-      message: 'Must contain an \'authorizingId\'!'
-    });
-    return;
+  var requestObj = {};
+  requestObj.username = req.params.username;
+  if (req.body.email) {
+    requestObj.email = req.body.email;
   }
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner') {
-        res.status(500).send({
-          message: 'Error updating username=' + req.params.username + ' with authorizingId=' + req.body.authorizingId + ': user is not owner'
+  if (req.body.role) {
+    requestObj.role = req.body.role;
+  }
+  User.update(requestObj, {where: { username: requestObj.username }})
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: 'User was updated successfully.'
         });
-        return;
-      }
-      var requestObj = {};
-      requestObj.username = req.params.username;
-      if (req.body.email) {
-        requestObj.email = req.body.email;
-      }
-      if (req.body.role) {
-        requestObj.role = req.body.role;
-      }
-      User.update(requestObj, {where: { username: requestObj.username }})
-        .then(num => {
-          if (num == 1) {
-            res.send({
-              message: 'User was updated successfully.'
-            });
-          } else {
-            res.send({
-              message: `Cannot update User with username=${requestObj.username}. Maybe User was not found or req.body is empty!`
-            });
-          }
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: 'Error updating User with id=' + id
-          });
+      } else {
+        res.send({
+          message: `Cannot update User with username=${requestObj.username}. Maybe User was not found or req.body is empty!`
         });
+      }
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error updating username=' + req.params.username + ' with authorizingId=' + req.body.authorizingId
+        message: 'Error updating User with id=' + id
       });
     });
-
 };

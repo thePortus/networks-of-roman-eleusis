@@ -1,18 +1,12 @@
 const db = require('../models');
 const Op = db.Sequelize.Op;
 
-const Honor = db.honors;
-const Inscription = db.inscriptions;
 const HonorInInscription = db.honorsInInscriptions;
-const User = db.users;
 
 // Create and Save a new Honor in Inscription
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.inscriptionId) {
     errorMsgs.push('Must contain an \'inscriptionId\' field!');
   }
@@ -27,30 +21,15 @@ exports.create = (req, res) => {
     inscriptionId: req.body.inscriptionId,
     honorId: req.body.honorId,
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding inscription=' + req.params.id + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
-      }
-      HonorInInscription.create(requestObj)
-        .then(data => {
-          console.log(`>> added Honor id=${requestObj.honorId} to Inscription id=${requestObj.inscriptionId}`);
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || 'Some error occurred while creating the Honor in Inscription.'
-          });
-        });
+  HonorInInscription.create(requestObj)
+    .then(data => {
+      console.log(`>> added Honor id=${requestObj.honorId} to Inscription id=${requestObj.inscriptionId}`);
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error adding inscription=' + req.params.id + ' with authorizingId=' + req.body.authorizingId
+        message:
+          err.message || 'Some error occurred while creating the Honor in Inscription.'
       });
     });
 };
@@ -60,8 +39,8 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   HonorInInscription.findAll({
-      where: condition
-    })
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })

@@ -5,15 +5,11 @@ const Institution = db.institutions;
 const Honor = db.honors;
 const Inscription = db.inscriptions;
 const Person = db.people;
-const User = db.users;
 
 // Create and Save a new Institution
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.title) {
     errorMsgs.push('Must contain an \'title\' field!');
   }
@@ -41,30 +37,15 @@ exports.create = (req, res) => {
     type: req.body.type,
     notes: req.body.notes || '',
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding institution=' + req.params.id + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
-      }
-      // Save Institution in the database
-      Institution.create(requestObj)
-        .then(data => {
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || 'Some error occurred while creating the Institution.'
-          });
-        });
+  // Save Institution in the database
+  Institution.create(requestObj)
+    .then(data => {
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error adding institution=' + req.params.id + ' with authorizingId=' + req.body.authorizingId
+        message:
+          err.message || 'Some error occurred while creating the Institution.'
       });
     });
 };
@@ -74,7 +55,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   Institution.findAll({
-      where: condition
+    where: condition
   })
     .then(data => {
       res.send(data);
@@ -153,9 +134,6 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   var errorMsgs = [];
   // validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.id) {
     errorMsgs.push('Must contain an \'id\' field!');
   }
@@ -167,37 +145,23 @@ exports.update = (req, res) => {
     return;
   }
   const id = req.params.id;
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error updating institution=' + req.params.id + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
+  Institution.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: 'Institution was updated successfully.'
         });
-        return;
+      } else {
+        res.send({
+          message: `Cannot update Institution with id=${id}. Maybe Institution was not found or req.body is empty!`
+        });
       }
-      Institution.update(req.body, {
-        where: { id: id }
-      })
-        .then(num => {
-          if (num == 1) {
-            res.send({
-              message: 'Institution was updated successfully.'
-            });
-          } else {
-            res.send({
-              message: `Cannot update Institution with id=${id}. Maybe Institution was not found or req.body is empty!`
-            });
-          }
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: 'Error updating Institution with id=' + id
-          });
-        });
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error updating institution=' + req.params.id + ' with authorizingId=' + req.body.authorizingId
+        message: 'Error updating Institution with id=' + id
       });
     });
 };

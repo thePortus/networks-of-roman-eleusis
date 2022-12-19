@@ -7,15 +7,11 @@ const InscriptionReference = db.inscriptionReferences;
 const Honor = db.honors;
 const Institution = db.institutions;
 const Person = db.people;
-const User = db.users;
 
 // Create and Save a new Inscription
 exports.create = (req, res) => {
   var errorMsgs = [];
   // Validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.ie) {
     errorMsgs.push('Must contain an \'ie\' field!');
   }
@@ -61,30 +57,15 @@ exports.create = (req, res) => {
     text: req.body.text || '',
     notes: req.body.notes || '',
   };
-  // ensure request sent by approved user
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error adding inscription=' + req.params.id + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
-        });
-        return;
-      }
-      // Save Inscription in the database
-      Inscription.create(requestObj)
-        .then(data => {
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || 'Some error occurred while creating the Inscription.'
-          });
-        });
+  // Save Inscription in the database
+  Inscription.create(requestObj)
+    .then(data => {
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error adding inscription=' + req.params.id + ' with authorizingId=' + req.body.authorizingId
+        message:
+          err.message || 'Some error occurred while creating the Inscription.'
       });
     });
 };
@@ -94,8 +75,8 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   Inscription.findAll({
-      where: condition
-    })
+    where: condition
+  })
     .then(data => {
       res.send(data);
     })
@@ -154,20 +135,17 @@ exports.findOne = (req, res) => {
           message: `Cannot find Inscription with id=${id}.`
         });
       }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: 'Error retrieving Inscription with id=' + id
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: 'Error retrieving Inscription with id=' + id
+      });
     });
-  });
 };
 // Update a Inscription by the id in the request
 exports.update = (req, res) => {
   var errorMsgs = [];
   // validate request
-  if (!req.body.authorizingId) {
-    errorMsgs.push('Must contain an \'authorizingId\'!');
-  }
   if (!req.body.id) {
     errorMsgs.push('Must contain an \'id\' field!');
   }
@@ -179,37 +157,23 @@ exports.update = (req, res) => {
     return;
   }
   const id = req.params.id;
-  User.findByPk(req.body.authorizingId)
-    .then(authorizingUser => {
-      if (authorizingUser.role != 'Owner' && authorizingUser.role != 'Editor') {
-        res.status(500).send({
-          message: 'Error updating inscription=' + req.params.id + ' with authorizingId=' + req.body.authorizingId + ': user is not approved'
+  Inscription.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: 'Inscription was updated successfully.'
         });
-        return;
+      } else {
+        res.send({
+          message: `Cannot update Inscription with id=${id}. Maybe Inscription was not found or req.body is empty!`
+        });
       }
-      Inscription.update(req.body, {
-        where: { id: id }
-      })
-        .then(num => {
-          if (num == 1) {
-            res.send({
-              message: 'Inscription was updated successfully.'
-            });
-          } else {
-            res.send({
-              message: `Cannot update Inscription with id=${id}. Maybe Inscription was not found or req.body is empty!`
-            });
-          }
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: 'Error updating Inscription with id=' + id
-          });
-        });
     })
     .catch(err => {
       res.status(500).send({
-        message: 'Error updating inscription=' + req.params.id + ' with authorizingId=' + req.body.authorizingId
+        message: 'Error updating Inscription with id=' + id
       });
     });
 };

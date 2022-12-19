@@ -57,8 +57,7 @@ export class AddPersonComponent implements OnInit {
       category: this.selectedCategory,
       gender: this.selectedGender,
       athenianCitizen: this.isAthenianCitizen,
-      romanCitizen: this.isRomanCitizen,
-      authorizingId: this.user.username
+      romanCitizen: this.isRomanCitizen
     };
     console.log(reqObject);
     // copy values from form into request object

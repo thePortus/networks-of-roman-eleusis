@@ -49,9 +49,7 @@ export class UsersComponent implements OnInit {
   }
 
   alterUserRole(username: any, newRole: any) {
-    const authorizingId = this.user.username;
     const requestObj = {
-      authorizingId: authorizingId,
       username: username,
       role: newRole
     };

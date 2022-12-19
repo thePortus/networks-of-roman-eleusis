@@ -95,7 +95,6 @@ export class EditHonorComponent implements OnInit {
   }
 
   update() {
-    this.protectedData.authorizingId = this.user.username;
     // preen reqData of uneeded item info before sending
     var reqData = this.protectedData;
     delete reqData.inscriptions;
@@ -177,7 +176,6 @@ export class EditHonorComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add inscription ' + this.newInscription.id + '?')) {
       const reqObject = {
-        authorizingId: this.user.username,
         honorId: this.itemId,
         inscriptionId: this.newInscription.id,
       };
@@ -208,7 +206,6 @@ export class EditHonorComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add institution ' + this.newInstitution.id + '?')) {
       const reqObject = {
-        authorizingId: this.user.username,
         honorId: this.itemId,
         institutionId: this.newInstitution.id
       };
@@ -243,7 +240,6 @@ export class EditHonorComponent implements OnInit {
     }
     if (confirm('Are you sure you want to add person ' + this.newPersonWithHonor.personId + ' in inscription ' + this.newPersonWithHonor.inscriptionId + ' to this honor?')) {
       const reqObject =  {
-        authorizingId: this.user.username,
         inscriptionId: this.newPersonWithHonor.inscriptionId,
         personId: this.newPersonWithHonor.personId,
         honorId: parseInt(this.itemId),
