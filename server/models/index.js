@@ -37,67 +37,11 @@ db.institutionInscriptions = require('./institution_inscription.model.js')(seque
 db.peopleInInscriptions = require('./person_in_inscription.model.js')(sequelize, Sequelize);
 db.peopleWithHonors = require('./person_with_honor.model.js')(sequelize, Sequelize);
 
-// set relationships and foreign key constraints
-// inscriptions <-> features
-db.inscriptionFeatures.belongsTo(db.inscriptions, { foreignKey: 'inscriptionId'});
-db.inscriptions.hasMany(db.inscriptionFeatures, { as: 'features' });
-// inscriptions <-> references
-db.inscriptionReferences.belongsTo(db.inscriptions, { foreignKey: 'inscriptionId'});
-db.inscriptions.hasMany(db.inscriptionReferences, { as: 'references' });
-// inscriptions <-> honors
-db.inscriptions.belongsToMany(db.honors, {
-  through: 'HonorsInInscriptions',
-  foreignKey: 'inscriptionId',
-  as: 'honors'
-});
-db.honors.belongsToMany(db.inscriptions, {
-  through: 'HonorsInInscriptions',
-  foreignKey: 'honorId',
-  as: 'inscriptions'
-});
-// institutions <-> honors
-db.institutions.belongsToMany(db.honors, {
-  through: 'InstitutionHonors',
-  foreignKey: 'institutionId',
-  as: 'honors'
-});
-db.honors.belongsToMany(db.institutions, {
-  through: 'InstitutionHonors',
-  foreignKey: 'honorId',
-  as: 'institutions'
-});
-// institutions <-> inscriptions
-db.institutions.belongsToMany(db.inscriptions, {
-  through: 'InstitutionInscriptions',
-  foreignKey: 'institutionId',
-  as: 'inscriptions'
-});
-db.inscriptions.belongsToMany(db.institutions, {
-  through: 'InstitutionInscriptions',
-  foreignKey: 'inscriptionId',
-  as: 'institutions'
-});
-// people <-> inscriptions
-db.people.belongsToMany(db.inscriptions, {
-  through: 'PeopleInInscriptions',
-  foreignKey: 'personId',
-  as: 'inscriptions'
-});
-db.inscriptions.belongsToMany(db.people, {
-  through: 'PeopleInInscriptions',
-  foreignKey: 'inscriptionId',
-  as: 'people'
-});
-// people <-> honors
-db.people.belongsToMany(db.honors, {
-  through: 'PeopleWithHonors',
-  foreignKey: 'personId',
-  as: 'honors'
-});
-db.honors.belongsToMany(db.people, {
-  through: 'PeopleWithHonors',
-  foreignKey: 'honorId',
-  as: 'people'
+// call association functions on all models and set fk constraints
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
 module.exports = db;

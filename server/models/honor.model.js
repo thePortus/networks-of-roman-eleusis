@@ -8,7 +8,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Honor.belongsToMany(models.inscriptions, {
+        through: 'HonorsInInscriptions',
+        foreignKey: 'honorId',
+        as: 'inscriptions'
+      });
+      Honor.belongsToMany(models.institutions, {
+        through: 'InstitutionHonors',
+        foreignKey: 'honorId',
+        as: 'institutions'
+      });
+      Honor.belongsToMany(models.people, {
+        through: 'PeopleWithHonors',
+        foreignKey: 'honorId',
+        as: 'people'
+      });
     }
   }
   Honor.init({
