@@ -8,7 +8,23 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Inscription.hasMany(models.inscriptionFeatures, { as: 'features' });
+      Inscription.hasMany(models.inscriptionReferences, { as: 'references' });
+      Inscription.belongsToMany(models.honors, {
+        through: 'HonorsInInscriptions',
+        foreignKey: 'inscriptionId',
+        as: 'honors'
+      });
+      Inscription.belongsToMany(models.institutions, {
+        through: 'InstitutionInscriptions',
+        foreignKey: 'inscriptionId',
+        as: 'institutions'
+      });
+      Inscription.belongsToMany(models.people, {
+        through: 'PeopleInInscriptions',
+        foreignKey: 'inscriptionId',
+        as: 'people'
+      });
     }
   }
   Inscription.init({
