@@ -175,6 +175,10 @@ to
   // socketPath: '/tmpmysql.sock' // specify the socket file path
 ```
 
+#### Google Analytics
+
+Now, go to Google Analytics and set up an app. Then, get the app ID, and insert it into the relevant spot in `client/app/app.componen.ts`.
+
 #### Building and Running
 
 One last step before we can start, we need to compile the front-end application.
