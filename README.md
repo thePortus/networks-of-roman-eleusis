@@ -177,7 +177,13 @@ to
 
 #### Google Analytics
 
-Now, go to Google Analytics and set up an app. Then, get the app ID, and insert it into the relevant spot in `client/app/app.componen.ts`.
+Now, go to Google Analytics and set up an app. Enable a web data stream. Then, get the Measurement ID, and insert it into the relevant spot in `client/app/app.component.ts` and `index.html`.
+
+``` sh
+# replace G-YOUR-GOOGLE-ID with the 
+sudo nano client/app/app.component.ts
+sudo nano index.html
+```
 
 #### Building and Running
 
