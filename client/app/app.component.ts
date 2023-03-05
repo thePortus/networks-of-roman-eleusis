@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
-
-import { Settings } from '.app.settings';
 
 // declaration of gtag function (defined in index.html <head>)
 declare let gtag: Function;
