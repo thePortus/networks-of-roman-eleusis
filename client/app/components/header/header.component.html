@@ -1,45 +1,49 @@
-<mat-toolbar class="mat-elevation-z8" color="primary" fxLayout="row" fxLayoutAlign="start center">
+<header>
+  <mat-toolbar class="mat-elevation-z8" color="primary" fxLayout="row" fxLayoutAlign="start center">
 
-  <!-- Site Header Info -->
-  <span routerLink="" fxLayout="column" fxFlex>
-    <span class="header-title"><strong>{{ settings.siteName }}</strong></span>
-    <span class="header-credit">By {{ settings.author }}, Copyright, &copy; {{ settings.copyright }}</span>
-  </span>
-
-  <div fxLayout="row">
-    <!-- thePortus Homepage Link -->
-    <button mat-raised-button class="header-button" color="accent" aria-label="thePort.us Homepage Button">
-        <a href="{{ settings.homepageUrl }}">{{ settings.homepageName }}</a>
-    </button>
-
-    <div>
-      <button mat-raised-button color="accent" [matMenuTriggerFor]="navmenu" aria-label="Navigation Menu">
-        <mat-icon>menu</mat-icon>
+    <!-- Site Header Info -->
+    <span routerLink="" fxLayout="column" fxFlex>
+      <h1><strong>{{ settings.siteName }}</strong></h1>
+      <span class="header-credit">By {{ settings.author }}, Copyright, &copy; {{ settings.copyright }}</span>
+    </span>
+  
+    <div fxLayout="row">
+      <!-- thePortus Homepage Link -->
+      <button mat-raised-button class="header-button" color="accent" aria-label="thePort.us Homepage Button">
+          <a href="{{ settings.homepageUrl }}">{{ settings.homepageName }}</a>
       </button>
-      <mat-menu #navmenu="matMenu">
-        <span *ngFor="let menuLink of menuLinks">
-          <button mat-menu-item (click)="navigate(menuLink.path)" aria-label="Navigation Button">{{ menuLink.label }}</button>
-        </span>
-        <div *ngIf="!this.user.loggedIn">
-          <span>
-            <button mat-menu-item (click)="navigate('/login')" aria-label="Login Button">Login</button>
-          </span>
-          <span>
-            <button mat-menu-item (click)="navigate('/register')" aria-label="Register Button">Register</button>
-          </span>
+  
+      <nav aria-label="Main">
+        <div>
+          <button mat-raised-button color="accent" [matMenuTriggerFor]="navmenu" aria-label="Navigation Menu">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <mat-menu #navmenu="matMenu">
+            <span *ngFor="let menuLink of menuLinks">
+              <button mat-menu-item (click)="navigate(menuLink.path)" aria-label="Navigation Button">{{ menuLink.label }}</button>
+            </span>
+            <div *ngIf="!this.user.loggedIn">
+              <span>
+                <button mat-menu-item (click)="navigate('/login')" aria-label="Login Button">Login</button>
+              </span>
+              <span>
+                <button mat-menu-item (click)="navigate('/register')" aria-label="Register Button">Register</button>
+              </span>
+            </div>
+            <div *ngIf="this.user.loggedIn">
+              <span *ngIf="this.user.role == 'Owner' || this.user.role == 'Editor'">
+                <button mat-menu-item (click)="navigate('/export')" aria-label="Export Button">Export</button>
+              </span>
+              <span>
+                <button mat-menu-item (click)="navigate('/profile')" aria-label="Profile Button">Profile</button>
+              </span>
+              <span>
+                <button mat-menu-item (click)="logout()" aria-label="Logout Button">Logout</button>
+              </span>
+            </div>
+          </mat-menu>
         </div>
-        <div *ngIf="this.user.loggedIn">
-          <span *ngIf="this.user.role == 'Owner' || this.user.role == 'Editor'">
-            <button mat-menu-item (click)="navigate('/export')" aria-label="Export Button">Export</button>
-          </span>
-          <span>
-            <button mat-menu-item (click)="navigate('/profile')" aria-label="Profile Button">Profile</button>
-          </span>
-          <span>
-            <button mat-menu-item (click)="logout()" aria-label="Logout Button">Logout</button>
-          </span>
-        </div>
-      </mat-menu>
+      </nav>
     </div>
-  </div>
-</mat-toolbar>
+  </mat-toolbar>  
+</header>
